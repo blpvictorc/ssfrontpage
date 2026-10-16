@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Victor's Automation Hub - Internal Tools Platform</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #f1f5f9;
+        }
+        .tool-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.08);
+        }
+    </style>
+</head>
+<body class="text-slate-800 min-h-screen flex flex-col">
+
+    <!-- Top Navigation Bar -->
+    <header class="bg-slate-900 text-white shadow-md sticky top-0 z-40">
+        <div class="max-w-[1400px] mx-auto px-6 py-4 flex flex-wrap justify-between items-center gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="bg-blue-600 p-2.5 rounded-xl shadow-inner">
+                    <i class="fa-solid fa-rocket text-xl text-white"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold tracking-wide flex items-center gap-2">
+                        Automation &amp; Tools Hub
+                        <span class="bg-blue-500/20 text-blue-300 text-xs font-semibold px-2.5 py-0.5 rounded-full border border-blue-400/30">v1.0</span>
+                    </h1>
+                    <p class="text-xs text-slate-400">Created &amp; Maintained by Victor Chong</p>
+                </div>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="flex items-center space-x-3 text-xs text-slate-300">
+                <span class="bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700 flex items-center gap-1.5">
+                    <i class="fa-solid fa-box-archive text-blue-400"></i> Active Tools: <strong class="text-white">2</strong>
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Banner Section -->
+    <section class="bg-gradient-to-r from-slate-900 via-slate-800 to-blue-950 text-white py-12 px-6 shadow-inner">
+        <div class="max-w-[1400px] mx-auto text-center space-y-3">
+            <h2 class="text-3xl font-extrabold tracking-tight">Internal Logistics &amp; Workflow Automation Hub</h2>
+            <p class="text-slate-300 text-sm max-w-2xl mx-auto">
+                Centralized platform for daily operational web tools and data integrators. Click any card below to launch the tool.
+            </p>
+            
+            <!-- Live Search & Tag Filter Bar -->
+            <div class="pt-4 max-w-md mx-auto relative">
+                <i class="fa-solid fa-magnifying-glass absolute left-4 top-7 text-slate-400 text-sm"></i>
+                <input type="text" id="tool-search" oninput="filterTools()" placeholder="Search by tool name, keyword, or user name (e.g. Rachel)..."
+                    class="w-full pl-11 pr-4 py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl text-sm text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white/20 transition shadow-lg">
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Tools Grid Container -->
+    <main class="flex-1 max-w-[1400px] w-full mx-auto px-6 py-10">
+        
+        <div class="flex items-center justify-between mb-6">
+            <h3 class="text-base font-bold text-slate-700 uppercase tracking-wider flex items-center gap-2">
+                <i class="fa-solid fa-grip text-blue-600"></i> Available Tools 
+            </h3>
+            <span class="text-xs text-slate-500">Showing all active modules</span>
+        </div>
+
+        <!-- Tools Cards Grid -->
+        <div id="tools-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <!-- Tool Card 1: SAP & Supplier Packing List Integrator -->
+            <div class="tool-card bg-white rounded-2xl border border-slate-200 p-6 shadow-sm transition-all duration-300 flex flex-col justify-between group" data-keywords="1 sap supplier packing list integrator merge logistics rachel">
+                <div class="space-y-4">
+                    <div class="flex justify-between items-start">
+                        <div class="flex items-center space-x-2">
+                            <span class="bg-slate-900 text-white text-xs font-bold px-2.5 py-1 rounded-lg">#1</span>
+                            <div class="bg-blue-50 text-blue-600 p-3 rounded-xl group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300 shadow-inner">
+                                <i class="fa-solid fa-file-excel text-xl"></i>
+                            </div>
+                        </div>
+                        <span class="bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wide">Ready</span>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors">SAP ↔️ Supplier Packing List Integrator</h4>
+                        <p class="text-xs text-slate-500 mt-1 leading-relaxed">
+                            Integrates and merges SAP data with Supplier Packing Lists smoothly for streamlined shipping workflows.
+                        </p>
+                    </div>
+                    <!-- User Tags Section -->
+                    <div class="flex flex-wrap gap-1.5 pt-1">
+                        <span class="text-[10px] font-semibold bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 rounded-md"><i class="fa-solid fa-user text-[9px] mr-1"></i>Rachel</span>
+                    </div>
+                </div>
+
+                <div class="pt-6 mt-6 border-t border-slate-100 flex items-center justify-between">
+                    <span class="text-[11px] text-slate-400 font-mono">Web ver 1.0, Core 3.8</span>
+                    <a href="https://blpvictorc.github.io/SAP.Supplier.Integrator-/" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-sm hover:shadow transition flex items-center gap-2">
+                        <span>Launch Tool</span>
+                        <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Tool Card 2: SAP Remark System -->
+            <div class="tool-card bg-white rounded-2xl border border-slate-200 p-6 shadow-sm transition-all duration-300 flex flex-col justify-between group" data-keywords="2 sap remark system processing shipping container rachel karly">
+                <div class="space-y-4">
+                    <div class="flex justify-between items-start">
+                        <div class="flex items-center space-x-2">
+                            <span class="bg-slate-900 text-white text-xs font-bold px-2.5 py-1 rounded-lg">#2</span>
+                            <div class="bg-indigo-50 text-indigo-600 p-3 rounded-xl group-hover:bg-indigo-600 group-hover:text-white transition-colors duration-300 shadow-inner">
+                                <i class="fa-solid fa-cubes-stacked text-xl"></i>
+                            </div>
+                        </div>
+                        <span class="bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wide">Ready</span>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">SAP Remark System</h4>
+                        <p class="text-xs text-slate-500 mt-1 leading-relaxed">
+                            Advanced remark processing and formatting tool for SAP operations with permanent history logs and date range filtering.
+                        </p>
+                    </div>
+                    <!-- User Tags Section -->
+                    <div class="flex flex-wrap gap-1.5 pt-1">
+                        <span class="text-[10px] font-semibold bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 rounded-md"><i class="fa-solid fa-user text-[9px] mr-1"></i>Rachel</span>
+                        <span class="text-[10px] font-semibold bg-purple-50 text-purple-700 border border-purple-200 px-2 py-0.5 rounded-md"><i class="fa-solid fa-user text-[9px] mr-1"></i>Karly</span>
+                    </div>
+                </div>
+
+                <div class="pt-6 mt-6 border-t border-slate-100 flex items-center justify-between">
+                    <span class="text-[11px] text-slate-400 font-mono">Web ver 1.0, Core 4.1</span>
+                    <a href="https://blpvictorc.github.io/rachel.remarkinput/" target="_blank" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-sm hover:shadow transition flex items-center gap-2">
+                        <span>Launch Tool</span>
+                        <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-6 px-6 mt-12 text-center text-xs text-slate-500">
+        <p>Automation Hub &copy; 2026. Built for internal operational efficiency by Victor Chong.</p>
+    </footer>
+
+    <!-- Search & Filter Logic -->
+    <script>
+        function filterTools() {
+            const query = document.getElementById('tool-search').value.toLowerCase().trim();
+            const cards = document.querySelectorAll('.tool-card');
+
+            cards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                const keywords = card.getAttribute('data-keywords') || '';
+                if (text.includes(query) || keywords.includes(query)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
