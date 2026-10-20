@@ -41,7 +41,7 @@
             <!-- Quick Stats -->
             <div class="flex items-center space-x-3 text-xs text-slate-300">
                 <span class="bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700 flex items-center gap-1.5">
-                    <i class="fa-solid fa-box-archive text-blue-400"></i> Active Tools: <strong class="text-white">2</strong>
+                    <i class="fa-solid fa-box-archive text-blue-400"></i> Active Tools: <strong class="text-white">3</strong>
                 </span>
             </div>
         </div>
@@ -58,7 +58,7 @@
             <!-- Live Search & Tag Filter Bar -->
             <div class="pt-4 max-w-md mx-auto relative">
                 <i class="fa-solid fa-magnifying-glass absolute left-4 top-7 text-slate-400 text-sm"></i>
-                <input type="text" id="tool-search" oninput="filterTools()" placeholder="Search by tool name, keyword, or user name (e.g. Rachel)..."
+                <input type="text" id="tool-search" oninput="filterTools()" placeholder="Search by tool name, keyword, or user name (e.g. Irene)..."
                     class="w-full pl-11 pr-4 py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl text-sm text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white/20 transition shadow-lg">
             </div>
         </div>
@@ -138,6 +138,39 @@
                 <div class="pt-6 mt-6 border-t border-slate-100 flex items-center justify-between">
                     <span class="text-[11px] text-slate-400 font-mono">Web ver 1.0, Core 4.1</span>
                     <a href="https://blpvictorc.github.io/rachel.remarkinput/" target="_blank" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-sm hover:shadow transition flex items-center gap-2">
+                        <span>Launch Tool</span>
+                        <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Tool Card 3: Container Manifest Sanitizer (Added for Irene) -->
+            <div class="tool-card bg-white rounded-2xl border border-slate-200 p-6 shadow-sm transition-all duration-300 flex flex-col justify-between group" data-keywords="3 container manifest sanitizer extractor clean space ctnr seal irene">
+                <div class="space-y-4">
+                    <div class="flex justify-between items-start">
+                        <div class="flex items-center space-x-2">
+                            <span class="bg-slate-900 text-white text-xs font-bold px-2.5 py-1 rounded-lg">#3</span>
+                            <div class="bg-emerald-50 text-emerald-600 p-3 rounded-xl group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-300 shadow-inner">
+                                <i class="fa-solid fa-ship text-xl"></i>
+                            </div>
+                        </div>
+                        <span class="bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wide">Ready</span>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-bold text-slate-900 group-hover:text-emerald-600 transition-colors">Container Manifest Sanitizer</h4>
+                        <p class="text-xs text-slate-500 mt-1 leading-relaxed">
+                            將 Container no. 空白抽走嘅工具。深度清理隱藏空格、自動過濾雜訊行，並極速提取貨櫃明細。
+                        </p>
+                    </div>
+                    <!-- User Tags Section -->
+                    <div class="flex flex-wrap gap-1.5 pt-1">
+                        <span class="text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded-md"><i class="fa-solid fa-user text-[9px] mr-1"></i>Irene</span>
+                    </div>
+                </div>
+
+                <div class="pt-6 mt-6 border-t border-slate-100 flex items-center justify-between">
+                    <span class="text-[11px] text-slate-400 font-mono">Web ver 1.0, Core 3.0</span>
+                    <a href="https://blpvictorc.github.io/irene.contatiner-/" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-sm hover:shadow transition flex items-center gap-2">
                         <span>Launch Tool</span>
                         <i class="fa-solid fa-arrow-right text-[10px]"></i>
                     </a>
