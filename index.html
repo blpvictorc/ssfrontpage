@@ -13,46 +13,10 @@
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             background-color: #f1f5f9;
-            transition: background-color 0.3s ease, color 0.3s ease;
         }
         .tool-card:hover {
             transform: translateY(-4px);
             box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.08);
-        }
-
-        /* Dark Mode 樣式設定 */
-        body.dark-mode {
-            background-color: #0b0f19;
-            color: #f1f5f9;
-        }
-        body.dark-mode .tool-card {
-            background-color: #1e293b;
-            border-color: #334155;
-        }
-        body.dark-mode .tool-card h4 {
-            color: #f8fafc !important;
-        }
-        body.dark-mode .tool-card p {
-            color: #94a3b8 !important;
-        }
-        body.dark-mode aside {
-            background-color: #1e293b !important;
-            border-color: #334155 !important;
-        }
-        body.dark-mode aside h3, 
-        body.dark-mode aside button,
-        body.dark-mode aside span {
-            color: #cbd5e1;
-        }
-        body.dark-mode footer {
-            background-color: #1e293b !important;
-            border-color: #334155 !important;
-            color: #94a3b8 !important;
-        }
-        body.dark-mode .bg-white {
-            background-color: #1e293b !important;
-            border-color: #334155 !important;
-            color: #f1f5f9 !important;
         }
     </style>
     <!-- Google tag (gtag.js) -->
@@ -85,15 +49,11 @@
                     </div>
                 </div>
 
-                <!-- Quick Stats & Dark Mode Toggle Button -->
+                <!-- Quick Stats -->
                 <div class="flex items-center space-x-3 text-xs text-slate-300">
                     <span class="bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700 flex items-center gap-1.5">
                         <i class="fa-solid fa-box-archive text-blue-400"></i> Active Tools: <strong id="active-tools-count" class="text-white">4</strong>
                     </span>
-                    <button onclick="toggleDarkMode()" class="bg-slate-800 hover:bg-slate-700 px-3 py-1.5 rounded-lg border border-slate-700 flex items-center gap-1.5 text-white transition shadow-sm" title="切換深色/淺色模式">
-                        <i id="theme-icon" class="fa-solid fa-moon text-amber-400"></i>
-                        <span id="theme-text" class="hidden sm:inline">Dark Mode</span>
-                    </button>
                 </div>
             </div>
         </header>
@@ -123,9 +83,9 @@
         <aside id="sidebar-container" class="w-full lg:w-72 bg-white rounded-2xl border border-slate-200 p-5 shadow-sm shrink-0 transition-all duration-300" style="display: none;">
             <div class="flex items-center justify-between pb-4 border-b border-slate-100 mb-4">
                 <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2">
-                    <i class="fa-solid fa-tags text-blue-600"></i> Tag &amp; User Directory
+                    <i class="fa-solid fa-tags text-blue-600"></i> Directory &amp; Quick Access
                 </h3>
-                <span class="bg-slate-100 text-slate-600 text-xs font-bold px-2 py-0.5 rounded-full">4 Tags</span>
+                <button onclick="toggleSidebar()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
             </div>
 
             <!-- Sidebar Navigation / Tag Groups -->
@@ -138,8 +98,34 @@
                     </button>
                 </div>
 
-                <!-- Rachel's Group -->
+                <!-- Favorites Section -->
                 <div class="space-y-1.5">
+                    <div class="font-bold text-amber-600 bg-amber-50/70 border border-amber-100 px-3 py-1.5 rounded-lg flex items-center justify-between">
+                        <span class="flex items-center gap-1.5">
+                            <i class="fa-solid fa-star text-amber-500"></i> 我的最愛 (Favorites)
+                        </span>
+                    </div>
+                    <ul id="sidebar-favorites" class="pl-2 space-y-1 ml-1 text-slate-600">
+                        <!-- 動態載入最愛項目 -->
+                        <li class="text-slate-400 italic py-1">未加入任何最愛</li>
+                    </ul>
+                </div>
+
+                <!-- Recent Tools Section -->
+                <div class="space-y-1.5">
+                    <div class="font-bold text-indigo-600 bg-indigo-50/70 border border-indigo-100 px-3 py-1.5 rounded-lg flex items-center justify-between">
+                        <span class="flex items-center gap-1.5">
+                            <i class="fa-solid fa-clock-rotate-left text-indigo-500"></i> 最近使用 (Recent)
+                        </span>
+                    </div>
+                    <ul id="sidebar-recents" class="pl-2 space-y-1 ml-1 text-slate-600">
+                        <!-- 動態載入最近使用項目 -->
+                        <li class="text-slate-400 italic py-1">尚無使用記錄</li>
+                    </ul>
+                </div>
+
+                <!-- Rachel's Group -->
+                <div class="space-y-1.5 pt-2 border-t border-slate-100">
                     <div class="font-bold text-blue-700 bg-blue-50/70 border border-blue-100 px-3 py-1.5 rounded-lg flex items-center justify-between">
                         <span onclick="filterByTag('rachel')" class="cursor-pointer flex-1 flex items-center gap-1.5">
                             <i class="fa-solid fa-user text-blue-500"></i> Rachel
@@ -148,7 +134,7 @@
                     </div>
                     <ul class="pl-4 space-y-1 border-l-2 border-blue-100 ml-2">
                         <li>
-                            <button onclick="filterByTag('SAP ↔️ Supplier Packing List Integrator')" class="text-slate-600 hover:text-blue-600 text-left w-full py-1 truncate">
+                            <button onclick="filterByTag('SAP ↔️ Supplier')" class="text-slate-600 hover:text-blue-600 text-left w-full py-1 truncate">
                                 • SAP ↔️ Supplier Packing List
                             </button>
                         </li>
@@ -221,8 +207,8 @@
             <!-- Tools Cards Grid -->
             <div id="tools-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-                <!-- Tool Card 1: SAP & Supplier Packing List Integrator -->
-                <div class="tool-card bg-white rounded-2xl border border-slate-200 p-6 shadow-sm transition-all duration-300 flex flex-col justify-between group" data-keywords="1 sap supplier packing list integrator merge logistics rachel">
+                <!-- Tool Card 1 -->
+                <div class="tool-card bg-white rounded-2xl border border-slate-200 p-6 shadow-sm transition-all duration-300 flex flex-col justify-between group" data-id="1" data-name="SAP ↔️ Supplier Packing List Integrator" data-keywords="1 sap supplier packing list integrator merge logistics rachel">
                     <div class="space-y-4">
                         <div class="flex justify-between items-start">
                             <div class="flex items-center space-x-2">
@@ -231,7 +217,12 @@
                                     <i class="fa-solid fa-file-excel text-xl"></i>
                                 </div>
                             </div>
-                            <span class="bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wide">Ready</span>
+                            <div class="flex items-center gap-2">
+                                <button onclick="toggleFavorite('1')" id="fav-btn-1" class="text-slate-300 hover:text-amber-400 p-1.5 transition" title="加入我的最愛">
+                                    <i class="fa-solid fa-star text-lg"></i>
+                                </button>
+                                <span class="bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wide">Ready</span>
+                            </div>
                         </div>
                         <div>
                             <h4 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors">SAP ↔️ Supplier Packing List Integrator</h4>
@@ -239,7 +230,6 @@
                                 Integrates and merges SAP data with Supplier Packing Lists smoothly for streamlined shipping workflows.
                             </p>
                         </div>
-                        <!-- User Tags Section -->
                         <div class="flex flex-wrap gap-1.5 pt-1">
                             <span class="text-[10px] font-semibold bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 rounded-md"><i class="fa-solid fa-user text-[9px] mr-1"></i>Rachel</span>
                         </div>
@@ -247,15 +237,15 @@
 
                     <div class="pt-6 mt-6 border-t border-slate-100 flex items-center justify-between">
                         <span class="text-[11px] text-slate-400 font-mono">Web ver 1.0, Core 3.8</span>
-                        <a href="https://blpvictorc.github.io/SAP.Supplier.Integrator-/" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-sm hover:shadow transition flex items-center gap-2">
+                        <a href="https://blpvictorc.github.io/SAP.Supplier.Integrator-/" target="_blank" onclick="recordRecent('1', 'SAP ↔️ Supplier Packing List Integrator')" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-sm hover:shadow transition flex items-center gap-2">
                             <span>Launch Tool</span>
                             <i class="fa-solid fa-arrow-right text-[10px]"></i>
                         </a>
                     </div>
                 </div>
 
-                <!-- Tool Card 2: SAP Remark Generator -->
-                <div class="tool-card bg-white rounded-2xl border border-slate-200 p-6 shadow-sm transition-all duration-300 flex flex-col justify-between group" data-keywords="2 sap remark system processing shipping container rachel karly">
+                <!-- Tool Card 2 -->
+                <div class="tool-card bg-white rounded-2xl border border-slate-200 p-6 shadow-sm transition-all duration-300 flex flex-col justify-between group" data-id="2" data-name="SAP Remark Generator" data-keywords="2 sap remark system processing shipping container rachel karly">
                     <div class="space-y-4">
                         <div class="flex justify-between items-start">
                             <div class="flex items-center space-x-2">
@@ -264,7 +254,12 @@
                                     <i class="fa-solid fa-cubes-stacked text-xl"></i>
                                 </div>
                             </div>
-                            <span class="bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wide">Ready</span>
+                            <div class="flex items-center gap-2">
+                                <button onclick="toggleFavorite('2')" id="fav-btn-2" class="text-slate-300 hover:text-amber-400 p-1.5 transition" title="加入我的最愛">
+                                    <i class="fa-solid fa-star text-lg"></i>
+                                </button>
+                                <span class="bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wide">Ready</span>
+                            </div>
                         </div>
                         <div>
                             <h4 class="text-lg font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">SAP Remark Generator</h4>
@@ -272,7 +267,6 @@
                                 Advanced remark processing and formatting tool for SAP operations with permanent history logs and date range filtering.
                             </p>
                         </div>
-                        <!-- User Tags Section -->
                         <div class="flex flex-wrap gap-1.5 pt-1">
                             <span class="text-[10px] font-semibold bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 rounded-md"><i class="fa-solid fa-user text-[9px] mr-1"></i>Rachel</span>
                             <span class="text-[10px] font-semibold bg-purple-50 text-purple-700 border border-purple-200 px-2 py-0.5 rounded-md"><i class="fa-solid fa-user text-[9px] mr-1"></i>Karly</span>
@@ -281,15 +275,15 @@
 
                     <div class="pt-6 mt-6 border-t border-slate-100 flex items-center justify-between">
                         <span class="text-[11px] text-slate-400 font-mono">Web ver 1.0, Core 4.1</span>
-                        <a href="https://blpvictorc.github.io/rachel.remarkinput/" target="_blank" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-sm hover:shadow transition flex items-center gap-2">
+                        <a href="https://blpvictorc.github.io/rachel.remarkinput/" target="_blank" onclick="recordRecent('2', 'SAP Remark Generator')" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-sm hover:shadow transition flex items-center gap-2">
                             <span>Launch Tool</span>
                             <i class="fa-solid fa-arrow-right text-[10px]"></i>
                         </a>
                     </div>
                 </div>
 
-                <!-- Tool Card 3: Container Manifest Sanitizer -->
-                <div class="tool-card bg-white rounded-2xl border border-slate-200 p-6 shadow-sm transition-all duration-300 flex flex-col justify-between group" data-keywords="3 container manifest sanitizer extractor clean space ctnr seal irene">
+                <!-- Tool Card 3 -->
+                <div class="tool-card bg-white rounded-2xl border border-slate-200 p-6 shadow-sm transition-all duration-300 flex flex-col justify-between group" data-id="3" data-name="Container Manifest Sanitizer" data-keywords="3 container manifest sanitizer extractor clean space ctnr seal irene">
                     <div class="space-y-4">
                         <div class="flex justify-between items-start">
                             <div class="flex items-center space-x-2">
@@ -298,7 +292,12 @@
                                     <i class="fa-solid fa-ship text-xl"></i>
                                 </div>
                             </div>
-                            <span class="bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wide">Ready</span>
+                            <div class="flex items-center gap-2">
+                                <button onclick="toggleFavorite('3')" id="fav-btn-3" class="text-slate-300 hover:text-amber-400 p-1.5 transition" title="加入我的最愛">
+                                    <i class="fa-solid fa-star text-lg"></i>
+                                </button>
+                                <span class="bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wide">Ready</span>
+                            </div>
                         </div>
                         <div>
                             <h4 class="text-lg font-bold text-slate-900 group-hover:text-emerald-600 transition-colors">Container Manifest Sanitizer</h4>
@@ -306,7 +305,6 @@
                                 Removes blank Container No. entries, performs deep cleaning of hidden spaces, automatically filters out noise rows, and rapidly extracts container details with high accuracy.
                             </p>
                         </div>
-                        <!-- User Tags Section -->
                         <div class="flex flex-wrap gap-1.5 pt-1">
                             <span class="text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded-md"><i class="fa-solid fa-user text-[9px] mr-1"></i>Irene</span>
                         </div>
@@ -314,15 +312,15 @@
 
                     <div class="pt-6 mt-6 border-t border-slate-100 flex items-center justify-between">
                         <span class="text-[11px] text-slate-400 font-mono">Web ver 1.0, Core 3.0</span>
-                        <a href="https://blpvictorc.github.io/irene.contatiner-/" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-sm hover:shadow transition flex items-center gap-2">
+                        <a href="https://blpvictorc.github.io/irene.contatiner-/" target="_blank" onclick="recordRecent('3', 'Container Manifest Sanitizer')" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-sm hover:shadow transition flex items-center gap-2">
                             <span>Launch Tool</span>
                             <i class="fa-solid fa-arrow-right text-[10px]"></i>
                         </a>
                     </div>
                 </div>
 
-                <!-- Tool Card 4: Shipping & Shipmark Generator -->
-                <div class="tool-card bg-white rounded-2xl border border-slate-200 p-6 shadow-sm transition-all duration-300 flex flex-col justify-between group" data-keywords="4 shipping shipmark generator bntca order cargo volume worksheet irene">
+                <!-- Tool Card 4 -->
+                <div class="tool-card bg-white rounded-2xl border border-slate-200 p-6 shadow-sm transition-all duration-300 flex flex-col justify-between group" data-id="4" data-name="Shipping & Shipmark Generator" data-keywords="4 shipping shipmark generator bntca order cargo volume worksheet irene">
                     <div class="space-y-4">
                         <div class="flex justify-between items-start">
                             <div class="flex items-center space-x-2">
@@ -331,7 +329,12 @@
                                     <i class="fa-solid fa-boxes-packing text-xl"></i>
                                 </div>
                             </div>
-                            <span class="bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wide">Ready</span>
+                            <div class="flex items-center gap-2">
+                                <button onclick="toggleFavorite('4')" id="fav-btn-4" class="text-slate-300 hover:text-amber-400 p-1.5 transition" title="加入我的最愛">
+                                    <i class="fa-solid fa-star text-lg"></i>
+                                </button>
+                                <span class="bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wide">Ready</span>
+                            </div>
                         </div>
                         <div>
                             <h4 class="text-lg font-bold text-slate-900 group-hover:text-purple-600 transition-colors">Shipping &amp; Shipmark Generator</h4>
@@ -339,7 +342,6 @@
                                 Converts BNTCA Order files into individual vendor Shipmark instructions &amp; generates cargo volume worksheets.
                             </p>
                         </div>
-                        <!-- User Tags Section -->
                         <div class="flex flex-wrap gap-1.5 pt-1">
                             <span class="text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded-md"><i class="fa-solid fa-user text-[9px] mr-1"></i>Irene</span>
                         </div>
@@ -347,7 +349,7 @@
 
                     <div class="pt-6 mt-6 border-t border-slate-100 flex items-center justify-between">
                         <span class="text-[11px] text-slate-400 font-mono">Web ver 1.0, Core 5.0</span>
-                        <a href="https://blpvictorc.github.io/irene.shipmark/" target="_blank" class="bg-purple-600 hover:bg-purple-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-sm hover:shadow transition flex items-center gap-2">
+                        <a href="https://blpvictorc.github.io/irene.shipmark/" target="_blank" onclick="recordRecent('4', 'Shipping & Shipmark Generator')" class="bg-purple-600 hover:bg-purple-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-sm hover:shadow transition flex items-center gap-2">
                             <span>Launch Tool</span>
                             <i class="fa-solid fa-arrow-right text-[10px]"></i>
                         </a>
@@ -363,30 +365,22 @@
         <p>Automation Hub &copy; 2026. Built for internal operational efficiency by Victor Chong.</p>
     </footer>
 
-    <!-- Logic Script (Search, Sidebar, Dark Mode, Dynamic Tool Count) -->
+    <!-- Logic Script (Search, Sidebar, Favorites, Recents) -->
     <script>
-        // 頁面載入時自動計算工具總數並套用儲存的 Dark Mode 狀態
+        // 初始化載入
         document.addEventListener("DOMContentLoaded", function() {
             const totalTools = document.querySelectorAll('.tool-card').length;
             const countEl = document.getElementById('active-tools-count');
-            if (countEl) {
-                countEl.textContent = totalTools;
-            }
+            if (countEl) countEl.textContent = totalTools;
 
-            if (localStorage.getItem('theme') === 'dark') {
-                document.body.classList.add('dark-mode');
-                updateThemeUI(true);
-            }
+            updateFavoritesUI();
+            updateRecentsUI();
         });
 
         // 側邊欄開關
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar-container');
-            if (sidebar.style.display === 'none') {
-                sidebar.style.display = 'block';
-            } else {
-                sidebar.style.display = 'none';
-            }
+            sidebar.style.display = (sidebar.style.display === 'none') ? 'block' : 'none';
         }
 
         // Tag 篩選
@@ -396,7 +390,7 @@
             filterTools();
         }
 
-        // 工具搜尋過濾
+        // 搜尋過濾
         function filterTools() {
             const query = document.getElementById('tool-search').value.toLowerCase().trim();
             const cards = document.querySelectorAll('.tool-card');
@@ -412,27 +406,71 @@
             });
         }
 
-        // Dark Mode 切換邏輯
-        function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
-            const isDark = document.body.classList.contains('dark-mode');
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
-            updateThemeUI(isDark);
+        // --- 我的最愛 (Favorites) 邏輯 ---
+        function toggleFavorite(id) {
+            let favorites = JSON.parse(localStorage.getItem('ss_favorites') || '[]');
+            const index = favorites.indexOf(id);
+            if (index > -1) {
+                favorites.splice(index, 1);
+            } else {
+                favorites.push(id);
+            }
+            localStorage.setItem('ss_favorites', JSON.stringify(favorites));
+            updateFavoritesUI();
         }
 
-        // 更新按鈕圖示與文字
-        function updateThemeUI(isDark) {
-            const icon = document.getElementById('theme-icon');
-            const text = document.getElementById('theme-text');
-            if (icon && text) {
-                if (isDark) {
-                    icon.className = "fa-solid fa-sun text-yellow-400";
-                    text.textContent = "Light Mode";
-                } else {
-                    icon.className = "fa-solid fa-moon text-amber-400";
-                    text.textContent = "Dark Mode";
-                }
+        function updateFavoritesUI() {
+            const favorites = JSON.parse(localStorage.getItem('ss_favorites') || '[]');
+            const favContainer = document.getElementById('sidebar-favorites');
+            favContainer.innerHTML = '';
+
+            if (favorites.length === 0) {
+                favContainer.innerHTML = '<li class="text-slate-400 italic py-1">未加入任何最愛</li>';
             }
+
+            document.querySelectorAll('.tool-card').forEach(card => {
+                const id = card.getAttribute('data-id');
+                const name = card.getAttribute('data-name');
+                const btn = document.getElementById(`fav-btn-${id}`);
+
+                if (favorites.includes(id)) {
+                    if (btn) btn.innerHTML = '<i class="fa-solid fa-star text-lg text-amber-400"></i>';
+                    const li = document.createElement('li');
+                    li.innerHTML = `<button onclick="filterByTag('${name}')" class="text-slate-600 hover:text-amber-600 text-left w-full py-1 truncate">• ${name}</button>`;
+                    favContainer.appendChild(li);
+                } else {
+                    if (btn) btn.innerHTML = '<i class="fa-solid fa-star text-lg"></i>';
+                }
+            });
+        }
+
+        // --- 最近使用 (Recent Tools) 邏輯 ---
+        function recordRecent(id, name) {
+            let recents = JSON.parse(localStorage.getItem('ss_recents') || '[]');
+            // 移除舊的重複項目
+            recents = recents.filter(item => item.id !== id);
+            // 加到最前面
+            recents.unshift({ id, name });
+            // 最多保留 3 個
+            if (recents.length > 3) recents.pop();
+            localStorage.setItem('ss_recents', JSON.stringify(recents));
+        }
+
+        function updateRecentsUI() {
+            const recents = JSON.parse(localStorage.getItem('ss_recents') || '[]');
+            const recContainer = document.getElementById('sidebar-recents');
+            recContainer.innerHTML = '';
+
+            if (recents.length === 0) {
+                recContainer.innerHTML = '<li class="text-slate-400 italic py-1">尚無使用記錄</li>';
+                return;
+            }
+
+            recents.forEach(item => {
+                const li = document.createElement('li');
+                li.innerHTML = `<button onclick="filterByTag('${item.name}')" class="text-slate-600 hover:text-indigo-600 text-left w-full py-1 truncate">• ${item.name}</button>`;
+                recContainer.appendChild(li);
+            });
         }
     </script>
 </body>
