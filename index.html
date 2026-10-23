@@ -18,6 +18,27 @@
             transform: translateY(-4px);
             box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.08);
         }
+
+        /* 星星點擊彈跳動畫 */
+        @keyframes starPop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.5) rotate(15deg); }
+            100% { transform: scale(1); }
+        }
+        .star-animated {
+            animation: starPop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* 提示通知淡入淡出動畫 */
+        .toast-enter {
+            transform: translateY(20px);
+            opacity: 0;
+        }
+        .toast-active {
+            transform: translateY(0);
+            opacity: 1;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
     </style>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-KKFCK1CHW2"></script>
@@ -29,7 +50,10 @@
       gtag('config', 'G-KKFCK1CHW2');
     </script>
 </head>
-<body class="text-slate-800 min-h-screen flex flex-col">
+<body class="text-slate-800 min-h-screen flex flex-col relative">
+
+    <!-- 浮動通知容器 (Toast Notifications) -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
     <!-- Sticky Header & Hero Section Wrapper -->
     <div class="sticky top-0 z-40 shadow-xl">
@@ -218,7 +242,7 @@
                                 </div>
                             </div>
                             <div class="flex items-center gap-2">
-                                <button onclick="toggleFavorite('1')" id="fav-btn-1" class="text-slate-300 hover:text-amber-400 p-1.5 transition" title="加入我的最愛">
+                                <button onclick="toggleFavorite('1')" id="fav-btn-1" class="text-slate-300 hover:text-amber-400 p-2 transition transform active:scale-90" title="加入我的最愛">
                                     <i class="fa-solid fa-star text-lg"></i>
                                 </button>
                                 <span class="bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wide">Ready</span>
@@ -255,7 +279,7 @@
                                 </div>
                             </div>
                             <div class="flex items-center gap-2">
-                                <button onclick="toggleFavorite('2')" id="fav-btn-2" class="text-slate-300 hover:text-amber-400 p-1.5 transition" title="加入我的最愛">
+                                <button onclick="toggleFavorite('2')" id="fav-btn-2" class="text-slate-300 hover:text-amber-400 p-2 transition transform active:scale-90" title="加入我的最愛">
                                     <i class="fa-solid fa-star text-lg"></i>
                                 </button>
                                 <span class="bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wide">Ready</span>
@@ -293,7 +317,7 @@
                                 </div>
                             </div>
                             <div class="flex items-center gap-2">
-                                <button onclick="toggleFavorite('3')" id="fav-btn-3" class="text-slate-300 hover:text-amber-400 p-1.5 transition" title="加入我的最愛">
+                                <button onclick="toggleFavorite('3')" id="fav-btn-3" class="text-slate-300 hover:text-amber-400 p-2 transition transform active:scale-90" title="加入我的最愛">
                                     <i class="fa-solid fa-star text-lg"></i>
                                 </button>
                                 <span class="bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wide">Ready</span>
@@ -330,7 +354,7 @@
                                 </div>
                             </div>
                             <div class="flex items-center gap-2">
-                                <button onclick="toggleFavorite('4')" id="fav-btn-4" class="text-slate-300 hover:text-amber-400 p-1.5 transition" title="加入我的最愛">
+                                <button onclick="toggleFavorite('4')" id="fav-btn-4" class="text-slate-300 hover:text-amber-400 p-2 transition transform active:scale-90" title="加入我的最愛">
                                     <i class="fa-solid fa-star text-lg"></i>
                                 </button>
                                 <span class="bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wide">Ready</span>
@@ -365,9 +389,8 @@
         <p>Automation Hub &copy; 2026. Built for internal operational efficiency by Victor Chong.</p>
     </footer>
 
-    <!-- Logic Script (Search, Sidebar, Favorites, Recents) -->
+    <!-- Logic Script (Search, Sidebar, Favorites with Animation & Toast) -->
     <script>
-        // 初始化載入
         document.addEventListener("DOMContentLoaded", function() {
             const totalTools = document.querySelectorAll('.tool-card').length;
             const countEl = document.getElementById('active-tools-count');
@@ -377,20 +400,17 @@
             updateRecentsUI();
         });
 
-        // 側邊欄開關
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar-container');
             sidebar.style.display = (sidebar.style.display === 'none') ? 'block' : 'none';
         }
 
-        // Tag 篩選
         function filterByTag(keyword) {
             const searchInput = document.getElementById('tool-search');
             searchInput.value = keyword;
             filterTools();
         }
 
-        // 搜尋過濾
         function filterTools() {
             const query = document.getElementById('tool-search').value.toLowerCase().trim();
             const cards = document.querySelectorAll('.tool-card');
@@ -406,17 +426,59 @@
             });
         }
 
-        // --- 我的最愛 (Favorites) 邏輯 ---
+        // --- 彈出通知 (Toast Message) 函數 ---
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            const iconClass = type === 'success' ? 'fa-circle-check text-amber-400' : 'fa-circle-info text-slate-400';
+            
+            toast.className = "bg-slate-900 text-white text-xs px-4 py-3 rounded-xl shadow-2xl border border-slate-700 flex items-center gap-3 toast-enter pointer-events-auto";
+            toast.innerHTML = `<i class="fa-solid ${iconClass} text-base"></i><span class="font-medium">${message}</span>`;
+            
+            container.appendChild(toast);
+
+            // 觸發進場動畫
+            setTimeout(() => {
+                toast.classList.remove('toast-enter');
+                toast.classList.add('toast-active');
+            }, 10);
+
+            // 2.5秒後自動淡出消失
+            setTimeout(() => {
+                toast.classList.remove('toast-active');
+                toast.classList.add('toast-enter');
+                setTimeout(() => {
+                    toast.remove();
+                }, 300);
+            }, 2500);
+        }
+
+        // --- 我的最愛 (Favorites) 邏輯配動畫 ---
         function toggleFavorite(id) {
             let favorites = JSON.parse(localStorage.getItem('ss_favorites') || '[]');
             const index = favorites.indexOf(id);
+            const btn = document.getElementById(`fav-btn-${id}`);
+            const card = btn.closest('.tool-card');
+            const toolName = card.getAttribute('data-name');
+            const icon = btn.querySelector('i');
+
+            // 執行星星放大旋轉動畫
+            icon.classList.add('star-animated');
+            setTimeout(() => icon.classList.remove('star-animated'), 350);
+
+            let msg = '';
             if (index > -1) {
                 favorites.splice(index, 1);
+                msg = `已取消最愛：${toolName}`;
             } else {
                 favorites.push(id);
+                msg = `已成功加入最愛：${toolName}`;
             }
+
             localStorage.setItem('ss_favorites', JSON.stringify(favorites));
             updateFavoritesUI();
+            showToast(msg);
         }
 
         function updateFavoritesUI() {
@@ -432,14 +494,18 @@
                 const id = card.getAttribute('data-id');
                 const name = card.getAttribute('data-name');
                 const btn = document.getElementById(`fav-btn-${id}`);
+                const icon = btn.querySelector('i');
 
                 if (favorites.includes(id)) {
-                    if (btn) btn.innerHTML = '<i class="fa-solid fa-star text-lg text-amber-400"></i>';
+                    btn.className = "text-amber-400 p-2 transition transform active:scale-90";
+                    icon.className = "fa-solid fa-star text-lg drop-shadow-sm";
+                    
                     const li = document.createElement('li');
                     li.innerHTML = `<button onclick="filterByTag('${name}')" class="text-slate-600 hover:text-amber-600 text-left w-full py-1 truncate">• ${name}</button>`;
                     favContainer.appendChild(li);
                 } else {
-                    if (btn) btn.innerHTML = '<i class="fa-solid fa-star text-lg"></i>';
+                    btn.className = "text-slate-300 hover:text-amber-400 p-2 transition transform active:scale-90";
+                    icon.className = "fa-solid fa-star text-lg";
                 }
             });
         }
@@ -447,11 +513,8 @@
         // --- 最近使用 (Recent Tools) 邏輯 ---
         function recordRecent(id, name) {
             let recents = JSON.parse(localStorage.getItem('ss_recents') || '[]');
-            // 移除舊的重複項目
             recents = recents.filter(item => item.id !== id);
-            // 加到最前面
             recents.unshift({ id, name });
-            // 最多保留 3 個
             if (recents.length > 3) recents.pop();
             localStorage.setItem('ss_recents', JSON.stringify(recents));
         }
