@@ -22,7 +22,7 @@
 </head>
 <body class="text-slate-800 min-h-screen flex flex-col">
 
-    <!-- Sticky Header & Hero Section Wrapper (包住導航欄同標題/搜尋欄，捲動時一齊固定喺最頂) -->
+    <!-- Sticky Header & Hero Section Wrapper -->
     <div class="sticky top-0 z-40 shadow-xl">
         <!-- Top Navigation Bar -->
         <header class="bg-slate-900 text-white border-b border-slate-800">
@@ -49,7 +49,7 @@
             </div>
         </header>
 
-        <!-- Hero Banner Section (連同搜尋欄一齊固定) -->
+        <!-- Hero Banner Section -->
         <section class="bg-gradient-to-r from-slate-900 via-slate-800 to-blue-950 text-white py-8 px-6">
             <div class="max-w-[1400px] mx-auto text-center space-y-3">
                 <h2 class="text-3xl font-extrabold tracking-tight">Internal Logistics &amp; Workflow Tools Hub</h2>
@@ -67,162 +67,270 @@
         </section>
     </div>
 
-    <!-- Main Tools Grid Container -->
-    <main class="flex-1 max-w-[1400px] w-full mx-auto px-6 py-10">
+    <!-- Main Content Layout (Sidebar + Tools Grid) -->
+    <div class="flex-1 max-w-[1400px] w-full mx-auto px-6 py-10 flex flex-col lg:flex-row gap-8 items-start">
         
-        <div class="flex items-center justify-between mb-6">
-            <h3 class="text-base font-bold text-slate-700 uppercase tracking-wider flex items-center gap-2">
-                <i class="fa-solid fa-grip text-blue-600"></i> Available Tools 
-            </h3>
-            <span class="text-xs text-slate-500">Showing all active modules</span>
-        </div>
-
-        <!-- Tools Cards Grid -->
-        <div id="tools-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-            <!-- Tool Card 1: SAP & Supplier Packing List Integrator -->
-            <div class="tool-card bg-white rounded-2xl border border-slate-200 p-6 shadow-sm transition-all duration-300 flex flex-col justify-between group" data-keywords="1 sap supplier packing list integrator merge logistics rachel">
-                <div class="space-y-4">
-                    <div class="flex justify-between items-start">
-                        <div class="flex items-center space-x-2">
-                            <span class="bg-slate-900 text-white text-xs font-bold px-2.5 py-1 rounded-lg">#1</span>
-                            <div class="bg-blue-50 text-blue-600 p-3 rounded-xl group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300 shadow-inner">
-                                <i class="fa-solid fa-file-excel text-xl"></i>
-                            </div>
-                        </div>
-                        <span class="bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wide">Ready</span>
-                    </div>
-                    <div>
-                        <h4 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors">SAP ↔️ Supplier Packing List Integrator</h4>
-                        <p class="text-xs text-slate-500 mt-1 leading-relaxed">
-                            Integrates and merges SAP data with Supplier Packing Lists smoothly for streamlined shipping workflows.
-                        </p>
-                    </div>
-                    <!-- User Tags Section -->
-                    <div class="flex flex-wrap gap-1.5 pt-1">
-                        <span class="text-[10px] font-semibold bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 rounded-md"><i class="fa-solid fa-user text-[9px] mr-1"></i>Rachel</span>
-                    </div>
-                </div>
-
-                <div class="pt-6 mt-6 border-t border-slate-100 flex items-center justify-between">
-                    <span class="text-[11px] text-slate-400 font-mono">Web ver 1.0, Core 3.8</span>
-                    <a href="https://blpvictorc.github.io/SAP.Supplier.Integrator-/" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-sm hover:shadow transition flex items-center gap-2">
-                        <span>Launch Tool</span>
-                        <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                    </a>
-                </div>
+        <!-- Left Collapsible Sidebar -->
+        <aside id="sidebar-container" class="w-full lg:w-72 bg-white rounded-2xl border border-slate-200 p-5 shadow-sm shrink-0 transition-all duration-300">
+            <div class="flex items-center justify-between pb-4 border-b border-slate-100 mb-4">
+                <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2">
+                    <i class="fa-solid fa-tags text-blue-600"></i> Tag &amp; User Directory
+                </h3>
+                <span class="bg-slate-100 text-slate-600 text-xs font-bold px-2 py-0.5 rounded-full">4 Tags</span>
             </div>
 
-            <!-- Tool Card 2: SAP Remark Generator -->
-            <div class="tool-card bg-white rounded-2xl border border-slate-200 p-6 shadow-sm transition-all duration-300 flex flex-col justify-between group" data-keywords="2 sap remark system processing shipping container rachel karly">
-                <div class="space-y-4">
-                    <div class="flex justify-between items-start">
-                        <div class="flex items-center space-x-2">
-                            <span class="bg-slate-900 text-white text-xs font-bold px-2.5 py-1 rounded-lg">#2</span>
-                            <div class="bg-indigo-50 text-indigo-600 p-3 rounded-xl group-hover:bg-indigo-600 group-hover:text-white transition-colors duration-300 shadow-inner">
-                                <i class="fa-solid fa-cubes-stacked text-xl"></i>
-                            </div>
-                        </div>
-                        <span class="bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wide">Ready</span>
-                    </div>
-                    <div>
-                        <h4 class="text-lg font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">SAP Remark Generator</h4>
-                        <p class="text-xs text-slate-500 mt-1 leading-relaxed">
-                            Advanced remark processing and formatting tool for SAP operations with permanent history logs and date range filtering.
-                        </p>
-                    </div>
-                    <!-- User Tags Section -->
-                    <div class="flex flex-wrap gap-1.5 pt-1">
-                        <span class="text-[10px] font-semibold bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 rounded-md"><i class="fa-solid fa-user text-[9px] mr-1"></i>Rachel</span>
-                        <span class="text-[10px] font-semibold bg-purple-50 text-purple-700 border border-purple-200 px-2 py-0.5 rounded-md"><i class="fa-solid fa-user text-[9px] mr-1"></i>Karly</span>
-                    </div>
+            <!-- Sidebar Navigation / Tag Groups -->
+            <div class="space-y-5 text-xs">
+                <!-- All Tools Option -->
+                <div>
+                    <button onclick="filterByTag('')" class="w-full text-left font-semibold text-slate-700 hover:text-blue-600 flex items-center justify-between p-2 rounded-lg hover:bg-slate-50 transition">
+                        <span><i class="fa-solid fa-border-all mr-2 text-blue-500"></i> All Active Tools</span>
+                        <span class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-mono">4</span>
+                    </button>
                 </div>
 
-                <div class="pt-6 mt-6 border-t border-slate-100 flex items-center justify-between">
-                    <span class="text-[11px] text-slate-400 font-mono">Web ver 1.0, Core 4.1</span>
-                    <a href="https://blpvictorc.github.io/rachel.remarkinput/" target="_blank" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-sm hover:shadow transition flex items-center gap-2">
-                        <span>Launch Tool</span>
-                        <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Tool Card 3: Container Manifest Sanitizer -->
-            <div class="tool-card bg-white rounded-2xl border border-slate-200 p-6 shadow-sm transition-all duration-300 flex flex-col justify-between group" data-keywords="3 container manifest sanitizer extractor clean space ctnr seal irene">
-                <div class="space-y-4">
-                    <div class="flex justify-between items-start">
-                        <div class="flex items-center space-x-2">
-                            <span class="bg-slate-900 text-white text-xs font-bold px-2.5 py-1 rounded-lg">#3</span>
-                            <div class="bg-emerald-50 text-emerald-600 p-3 rounded-xl group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-300 shadow-inner">
-                                <i class="fa-solid fa-ship text-xl"></i>
-                            </div>
-                        </div>
-                        <span class="bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wide">Ready</span>
+                <!-- Rachel's Group -->
+                <div class="space-y-1.5">
+                    <div class="font-bold text-blue-700 bg-blue-50/70 border border-blue-100 px-3 py-1.5 rounded-lg flex items-center justify-between">
+                        <span onclick="filterByTag('rachel')" class="cursor-pointer flex-1 flex items-center gap-1.5">
+                            <i class="fa-solid fa-user text-blue-500"></i> Rachel
+                        </span>
+                        <span class="bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded text-[10px] font-mono">2 tools</span>
                     </div>
-                    <div>
-                        <h4 class="text-lg font-bold text-slate-900 group-hover:text-emerald-600 transition-colors">Container Manifest Sanitizer</h4>
-                        <p class="text-xs text-slate-500 mt-1 leading-relaxed">
-                            Removes blank Container No. entries, performs deep cleaning of hidden spaces, automatically filters out noise rows, and rapidly extracts container details with high accuracy.
-                        </p>
-                    </div>
-                    <!-- User Tags Section -->
-                    <div class="flex flex-wrap gap-1.5 pt-1">
-                        <span class="text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded-md"><i class="fa-solid fa-user text-[9px] mr-1"></i>Irene</span>
-                    </div>
+                    <ul class="pl-4 space-y-1 border-l-2 border-blue-100 ml-2">
+                        <li>
+                            <button onclick="filterByTag('SAP ↔️ Supplier Packing List Integrator')" class="text-slate-600 hover:text-blue-600 text-left w-full py-1 truncate">
+                                • SAP ↔️ Supplier Packing List
+                            </button>
+                        </li>
+                        <li>
+                            <button onclick="filterByTag('SAP Remark Generator')" class="text-slate-600 hover:text-blue-600 text-left w-full py-1 truncate">
+                                • SAP Remark Generator
+                            </button>
+                        </li>
+                    </ul>
                 </div>
 
-                <div class="pt-6 mt-6 border-t border-slate-100 flex items-center justify-between">
-                    <span class="text-[11px] text-slate-400 font-mono">Web ver 1.0, Core 3.0</span>
-                    <a href="https://blpvictorc.github.io/irene.contatiner-/" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-sm hover:shadow transition flex items-center gap-2">
-                        <span>Launch Tool</span>
-                        <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Tool Card 4: Shipping & Shipmark Generator -->
-            <div class="tool-card bg-white rounded-2xl border border-slate-200 p-6 shadow-sm transition-all duration-300 flex flex-col justify-between group" data-keywords="4 shipping shipmark generator bntca order cargo volume worksheet irene">
-                <div class="space-y-4">
-                    <div class="flex justify-between items-start">
-                        <div class="flex items-center space-x-2">
-                            <span class="bg-slate-900 text-white text-xs font-bold px-2.5 py-1 rounded-lg">#4</span>
-                            <div class="bg-purple-50 text-purple-600 p-3 rounded-xl group-hover:bg-purple-600 group-hover:text-white transition-colors duration-300 shadow-inner">
-                                <i class="fa-solid fa-boxes-packing text-xl"></i>
-                            </div>
-                        </div>
-                        <span class="bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wide">Ready</span>
+                <!-- Karly's Group -->
+                <div class="space-y-1.5">
+                    <div class="font-bold text-purple-700 bg-purple-50/70 border border-purple-100 px-3 py-1.5 rounded-lg flex items-center justify-between">
+                        <span onclick="filterByTag('karly')" class="cursor-pointer flex-1 flex items-center gap-1.5">
+                            <i class="fa-solid fa-user text-purple-500"></i> Karly
+                        </span>
+                        <span class="bg-purple-100 text-purple-800 px-1.5 py-0.5 rounded text-[10px] font-mono">1 tool</span>
                     </div>
-                    <div>
-                        <h4 class="text-lg font-bold text-slate-900 group-hover:text-purple-600 transition-colors">Shipping &amp; Shipmark Generator</h4>
-                        <p class="text-xs text-slate-500 mt-1 leading-relaxed">
-                            Converts BNTCA Order files into individual vendor Shipmark instructions &amp; generates cargo volume worksheets.
-                        </p>
-                    </div>
-                    <!-- User Tags Section -->
-                    <div class="flex flex-wrap gap-1.5 pt-1">
-                        <span class="text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded-md"><i class="fa-solid fa-user text-[9px] mr-1"></i>Irene</span>
-                    </div>
+                    <ul class="pl-4 space-y-1 border-l-2 border-purple-100 ml-2">
+                        <li>
+                            <button onclick="filterByTag('SAP Remark Generator')" class="text-slate-600 hover:text-purple-600 text-left w-full py-1 truncate">
+                                • SAP Remark Generator
+                            </button>
+                        </li>
+                    </ul>
                 </div>
 
-                <div class="pt-6 mt-6 border-t border-slate-100 flex items-center justify-between">
-                    <span class="text-[11px] text-slate-400 font-mono">Web ver 1.0, Core 5.0</span>
-                    <a href="https://blpvictorc.github.io/irene.shipmark/" target="_blank" class="bg-purple-600 hover:bg-purple-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-sm hover:shadow transition flex items-center gap-2">
-                        <span>Launch Tool</span>
-                        <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                    </a>
+                <!-- Irene's Group -->
+                <div class="space-y-1.5">
+                    <div class="font-bold text-emerald-700 bg-emerald-50/70 border border-emerald-100 px-3 py-1.5 rounded-lg flex items-center justify-between">
+                        <span onclick="filterByTag('irene')" class="cursor-pointer flex-1 flex items-center gap-1.5">
+                            <i class="fa-solid fa-user text-emerald-500"></i> Irene
+                        </span>
+                        <span class="bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded text-[10px] font-mono">2 tools</span>
+                    </div>
+                    <ul class="pl-4 space-y-1 border-l-2 border-emerald-100 ml-2">
+                        <li>
+                            <button onclick="filterByTag('Container Manifest Sanitizer')" class="text-slate-600 hover:text-emerald-600 text-left w-full py-1 truncate">
+                                • Container Manifest Sanitizer
+                            </button>
+                        </li>
+                        <li>
+                            <button onclick="filterByTag('Shipping & Shipmark Generator')" class="text-slate-600 hover:text-emerald-600 text-left w-full py-1 truncate">
+                                • Shipping &amp; Shipmark Generator
+                            </button>
+                        </li>
+                    </ul>
                 </div>
             </div>
+        </aside>
 
-        </div>
-    </main>
+        <!-- Right Main Tools Grid Container -->
+        <main class="flex-1 w-full">
+            
+            <div class="flex items-center justify-between mb-6">
+                <div class="flex items-center gap-3">
+                    <!-- Sidebar Toggle Button -->
+                    <button onclick="toggleSidebar()" class="bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 text-xs font-semibold px-3 py-2 rounded-xl shadow-sm transition flex items-center gap-2">
+                        <i class="fa-solid fa-columns"></i>
+                        <span>Toggle Sidebar</span>
+                    </button>
+                    <h3 class="text-base font-bold text-slate-700 uppercase tracking-wider flex items-center gap-2">
+                        <i class="fa-solid fa-grip text-blue-600"></i> Available Tools 
+                    </h3>
+                </div>
+                <span class="text-xs text-slate-500">Showing all active modules</span>
+            </div>
+
+            <!-- Tools Cards Grid -->
+            <div id="tools-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <!-- Tool Card 1: SAP & Supplier Packing List Integrator -->
+                <div class="tool-card bg-white rounded-2xl border border-slate-200 p-6 shadow-sm transition-all duration-300 flex flex-col justify-between group" data-keywords="1 sap supplier packing list integrator merge logistics rachel">
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-start">
+                            <div class="flex items-center space-x-2">
+                                <span class="bg-slate-900 text-white text-xs font-bold px-2.5 py-1 rounded-lg">#1</span>
+                                <div class="bg-blue-50 text-blue-600 p-3 rounded-xl group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300 shadow-inner">
+                                    <i class="fa-solid fa-file-excel text-xl"></i>
+                                </div>
+                            </div>
+                            <span class="bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wide">Ready</span>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors">SAP ↔️ Supplier Packing List Integrator</h4>
+                            <p class="text-xs text-slate-500 mt-1 leading-relaxed">
+                                Integrates and merges SAP data with Supplier Packing Lists smoothly for streamlined shipping workflows.
+                            </p>
+                        </div>
+                        <!-- User Tags Section -->
+                        <div class="flex flex-wrap gap-1.5 pt-1">
+                            <span class="text-[10px] font-semibold bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 rounded-md"><i class="fa-solid fa-user text-[9px] mr-1"></i>Rachel</span>
+                        </div>
+                    </div>
+
+                    <div class="pt-6 mt-6 border-t border-slate-100 flex items-center justify-between">
+                        <span class="text-[11px] text-slate-400 font-mono">Web ver 1.0, Core 3.8</span>
+                        <a href="https://blpvictorc.github.io/SAP.Supplier.Integrator-/" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-sm hover:shadow transition flex items-center gap-2">
+                            <span>Launch Tool</span>
+                            <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Tool Card 2: SAP Remark Generator -->
+                <div class="tool-card bg-white rounded-2xl border border-slate-200 p-6 shadow-sm transition-all duration-300 flex flex-col justify-between group" data-keywords="2 sap remark system processing shipping container rachel karly">
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-start">
+                            <div class="flex items-center space-x-2">
+                                <span class="bg-slate-900 text-white text-xs font-bold px-2.5 py-1 rounded-lg">#2</span>
+                                <div class="bg-indigo-50 text-indigo-600 p-3 rounded-xl group-hover:bg-indigo-600 group-hover:text-white transition-colors duration-300 shadow-inner">
+                                    <i class="fa-solid fa-cubes-stacked text-xl"></i>
+                                </div>
+                            </div>
+                            <span class="bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wide">Ready</span>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">SAP Remark Generator</h4>
+                            <p class="text-xs text-slate-500 mt-1 leading-relaxed">
+                                Advanced remark processing and formatting tool for SAP operations with permanent history logs and date range filtering.
+                            </p>
+                        </div>
+                        <!-- User Tags Section -->
+                        <div class="flex flex-wrap gap-1.5 pt-1">
+                            <span class="text-[10px] font-semibold bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 rounded-md"><i class="fa-solid fa-user text-[9px] mr-1"></i>Rachel</span>
+                            <span class="text-[10px] font-semibold bg-purple-50 text-purple-700 border border-purple-200 px-2 py-0.5 rounded-md"><i class="fa-solid fa-user text-[9px] mr-1"></i>Karly</span>
+                        </div>
+                    </div>
+
+                    <div class="pt-6 mt-6 border-t border-slate-100 flex items-center justify-between">
+                        <span class="text-[11px] text-slate-400 font-mono">Web ver 1.0, Core 4.1</span>
+                        <a href="https://blpvictorc.github.io/rachel.remarkinput/" target="_blank" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-sm hover:shadow transition flex items-center gap-2">
+                            <span>Launch Tool</span>
+                            <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Tool Card 3: Container Manifest Sanitizer -->
+                <div class="tool-card bg-white rounded-2xl border border-slate-200 p-6 shadow-sm transition-all duration-300 flex flex-col justify-between group" data-keywords="3 container manifest sanitizer extractor clean space ctnr seal irene">
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-start">
+                            <div class="flex items-center space-x-2">
+                                <span class="bg-slate-900 text-white text-xs font-bold px-2.5 py-1 rounded-lg">#3</span>
+                                <div class="bg-emerald-50 text-emerald-600 p-3 rounded-xl group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-300 shadow-inner">
+                                    <i class="fa-solid fa-ship text-xl"></i>
+                                </div>
+                            </div>
+                            <span class="bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wide">Ready</span>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-bold text-slate-900 group-hover:text-emerald-600 transition-colors">Container Manifest Sanitizer</h4>
+                            <p class="text-xs text-slate-500 mt-1 leading-relaxed">
+                                Removes blank Container No. entries, performs deep cleaning of hidden spaces, automatically filters out noise rows, and rapidly extracts container details with high accuracy.
+                            </p>
+                        </div>
+                        <!-- User Tags Section -->
+                        <div class="flex flex-wrap gap-1.5 pt-1">
+                            <span class="text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded-md"><i class="fa-solid fa-user text-[9px] mr-1"></i>Irene</span>
+                        </div>
+                    </div>
+
+                    <div class="pt-6 mt-6 border-t border-slate-100 flex items-center justify-between">
+                        <span class="text-[11px] text-slate-400 font-mono">Web ver 1.0, Core 3.0</span>
+                        <a href="https://blpvictorc.github.io/irene.contatiner-/" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-sm hover:shadow transition flex items-center gap-2">
+                            <span>Launch Tool</span>
+                            <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Tool Card 4: Shipping & Shipmark Generator -->
+                <div class="tool-card bg-white rounded-2xl border border-slate-200 p-6 shadow-sm transition-all duration-300 flex flex-col justify-between group" data-keywords="4 shipping shipmark generator bntca order cargo volume worksheet irene">
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-start">
+                            <div class="flex items-center space-x-2">
+                                <span class="bg-slate-900 text-white text-xs font-bold px-2.5 py-1 rounded-lg">#4</span>
+                                <div class="bg-purple-50 text-purple-600 p-3 rounded-xl group-hover:bg-purple-600 group-hover:text-white transition-colors duration-300 shadow-inner">
+                                    <i class="fa-solid fa-boxes-packing text-xl"></i>
+                                </div>
+                            </div>
+                            <span class="bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wide">Ready</span>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-bold text-slate-900 group-hover:text-purple-600 transition-colors">Shipping &amp; Shipmark Generator</h4>
+                            <p class="text-xs text-slate-500 mt-1 leading-relaxed">
+                                Converts BNTCA Order files into individual vendor Shipmark instructions &amp; generates cargo volume worksheets.
+                            </p>
+                        </div>
+                        <!-- User Tags Section -->
+                        <div class="flex flex-wrap gap-1.5 pt-1">
+                            <span class="text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded-md"><i class="fa-solid fa-user text-[9px] mr-1"></i>Irene</span>
+                        </div>
+                    </div>
+
+                    <div class="pt-6 mt-6 border-t border-slate-100 flex items-center justify-between">
+                        <span class="text-[11px] text-slate-400 font-mono">Web ver 1.0, Core 5.0</span>
+                        <a href="https://blpvictorc.github.io/irene.shipmark/" target="_blank" class="bg-purple-600 hover:bg-purple-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-sm hover:shadow transition flex items-center gap-2">
+                            <span>Launch Tool</span>
+                            <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
 
     <!-- Footer -->
     <footer class="bg-white border-t border-slate-200 py-6 px-6 mt-12 text-center text-xs text-slate-500">
         <p>Automation Hub &copy; 2026. Built for internal operational efficiency by Victor Chong.</p>
     </footer>
 
-    <!-- Search & Filter Logic -->
+    <!-- Search & Sidebar Logic -->
     <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar-container');
+            if (sidebar.style.display === 'none') {
+                sidebar.style.display = 'block';
+            } else {
+                sidebar.style.display = 'none';
+            }
+        }
+
+        function filterByTag(keyword) {
+            const searchInput = document.getElementById('tool-search');
+            searchInput.value = keyword;
+            filterTools();
+        }
+
         function filterTools() {
             const query = document.getElementById('tool-search').value.toLowerCase().trim();
             const cards = document.querySelectorAll('.tool-card');
