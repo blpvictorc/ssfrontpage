@@ -20,49 +20,52 @@
         }
     </style>
 </head>
-<body class="text-slate-800 min-h-screen flex flex-col pt-20">
+<body class="text-slate-800 min-h-screen flex flex-col">
 
-    <!-- Top Navigation Bar (Fixed / Frozen at top) -->
-    <header class="bg-slate-900 text-white shadow-md fixed top-0 left-0 right-0 z-50">
-        <div class="max-w-[1400px] mx-auto px-6 py-4 flex flex-wrap justify-between items-center gap-4">
-            <div class="flex items-center space-x-3">
-                <div class="bg-blue-600 p-2.5 rounded-xl shadow-inner">
-                    <i class="fa-solid fa-rocket text-xl text-white"></i>
+    <!-- Sticky Header & Hero Section Wrapper (包住導航欄同標題/搜尋欄，捲動時一齊固定喺最頂) -->
+    <div class="sticky top-0 z-40 shadow-xl">
+        <!-- Top Navigation Bar -->
+        <header class="bg-slate-900 text-white border-b border-slate-800">
+            <div class="max-w-[1400px] mx-auto px-6 py-4 flex flex-wrap justify-between items-center gap-4">
+                <div class="flex items-center space-x-3">
+                    <div class="bg-blue-600 p-2.5 rounded-xl shadow-inner">
+                        <i class="fa-solid fa-rocket text-xl text-white"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-lg font-bold tracking-wide flex items-center gap-2">
+                            SS Team &amp; Tools Hub
+                            <span class="bg-blue-500/20 text-blue-300 text-xs font-semibold px-2.5 py-0.5 rounded-full border border-blue-400/30">v1.0</span>
+                        </h1>
+                        <p class="text-xs text-slate-400">Created &amp; Maintained by Victor Chong</p>
+                    </div>
                 </div>
-                <div>
-                    <h1 class="text-lg font-bold tracking-wide flex items-center gap-2">
-                        SS Team &amp; Tools Hub
-                        <span class="bg-blue-500/20 text-blue-300 text-xs font-semibold px-2.5 py-0.5 rounded-full border border-blue-400/30">v1.0</span>
-                    </h1>
-                    <p class="text-xs text-slate-400">Created &amp; Maintained by Victor Chong</p>
+
+                <!-- Quick Stats -->
+                <div class="flex items-center space-x-3 text-xs text-slate-300">
+                    <span class="bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700 flex items-center gap-1.5">
+                        <i class="fa-solid fa-box-archive text-blue-400"></i> Active Tools: <strong class="text-white">4</strong>
+                    </span>
                 </div>
             </div>
+        </header>
 
-            <!-- Quick Stats -->
-            <div class="flex items-center space-x-3 text-xs text-slate-300">
-                <span class="bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700 flex items-center gap-1.5">
-                    <i class="fa-solid fa-box-archive text-blue-400"></i> Active Tools: <strong class="text-white">4</strong>
-                </span>
+        <!-- Hero Banner Section (連同搜尋欄一齊固定) -->
+        <section class="bg-gradient-to-r from-slate-900 via-slate-800 to-blue-950 text-white py-8 px-6">
+            <div class="max-w-[1400px] mx-auto text-center space-y-3">
+                <h2 class="text-3xl font-extrabold tracking-tight">Internal Logistics &amp; Workflow Tools Hub</h2>
+                <p class="text-slate-300 text-sm max-w-2xl mx-auto">
+                    Centralized platform for daily operational web tools and data integrators. Click any card below to launch the tool.
+                </p>
+                
+                <!-- Live Search & Tag Filter Bar -->
+                <div class="pt-2 max-w-md mx-auto relative">
+                    <i class="fa-solid fa-magnifying-glass absolute left-4 top-5 text-slate-400 text-sm"></i>
+                    <input type="text" id="tool-search" oninput="filterTools()" placeholder="Search by tool name, keyword, or user name (e.g. Irene)..."
+                        class="w-full pl-11 pr-4 py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl text-sm text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white/20 transition shadow-lg">
+                </div>
             </div>
-        </div>
-    </header>
-
-    <!-- Hero Banner Section -->
-    <section class="bg-gradient-to-r from-slate-900 via-slate-800 to-blue-950 text-white py-12 px-6 shadow-inner">
-        <div class="max-w-[1400px] mx-auto text-center space-y-3">
-            <h2 class="text-3xl font-extrabold tracking-tight">Internal Logistics &amp; Workflow Tools Hub</h2>
-            <p class="text-slate-300 text-sm max-w-2xl mx-auto">
-                Centralized platform for daily operational web tools and data integrators. Click any card below to launch the tool.
-            </p>
-            
-            <!-- Live Search & Tag Filter Bar -->
-            <div class="pt-4 max-w-md mx-auto relative">
-                <i class="fa-solid fa-magnifying-glass absolute left-4 top-7 text-slate-400 text-sm"></i>
-                <input type="text" id="tool-search" oninput="filterTools()" placeholder="Search by tool name, keyword, or user name (e.g. Irene)..."
-                    class="w-full pl-11 pr-4 py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl text-sm text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white/20 transition shadow-lg">
-            </div>
-        </div>
-    </section>
+        </section>
+    </div>
 
     <!-- Main Tools Grid Container -->
     <main class="flex-1 max-w-[1400px] w-full mx-auto px-6 py-10">
