@@ -9,17 +9,16 @@
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500&display=swap');
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: #f1f5f9;
+            background-color: transparent; 
         }
         .tool-card:hover {
             transform: translateY(-4px);
             box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.08);
         }
 
-        /* 星星點擊彈跳動畫 */
         @keyframes starPop {
             0% { transform: scale(1); }
             50% { transform: scale(1.5) rotate(15deg); }
@@ -29,7 +28,6 @@
             animation: starPop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        /* 提示通知淡入淡出動畫 */
         .toast-enter {
             transform: translateY(20px);
             opacity: 0;
@@ -39,6 +37,78 @@
             opacity: 1;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
+        /* =========================================
+           物流點對點動態背景 (Point-to-Point Logistics)
+           ========================================= */
+        .logistics-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -2;
+            background: linear-gradient(180deg, #0f172a 0%, #1e293b 40%, #475569 80%, #64748b 100%);
+            overflow: hidden;
+        }
+
+        .logistics-grid {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.05) 2px, transparent 2px);
+            background-size: 50px 50px;
+        }
+
+        /* 航線與節點 */
+        .logistics-network {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        .dash-line {
+            stroke: #94a3b8;
+            stroke-width: 1.5;
+            stroke-dasharray: 10, 15;
+            opacity: 0.4;
+            animation: dashMove 30s linear infinite;
+        }
+        @keyframes dashMove {
+            to { stroke-dashoffset: -250; }
+        }
+        .node-point {
+            fill: #38bdf8;
+            filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.8));
+            animation: pulseNode 2.5s infinite alternate;
+        }
+        @keyframes pulseNode {
+            0% { r: 3; opacity: 0.5; }
+            100% { r: 5; opacity: 1; }
+        }
+
+        /* 載具設定 */
+        .vehicle {
+            position: absolute;
+            color: #cbd5e1; 
+            will-change: transform;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
+        }
+
+        @keyframes v-route1 { 0% { transform: translate(-10vw, 25vh) rotate(5deg); } 100% { transform: translate(110vw, 35vh) rotate(5deg); } }
+        @keyframes v-route2 { 0% { transform: translate(110vw, 85vh) rotate(-175deg); } 100% { transform: translate(-10vw, 75vh) rotate(-175deg); } }
+        @keyframes v-route3 { 0% { transform: translate(-10vw, -10vh) rotate(35deg); } 100% { transform: translate(110vw, 110vh) rotate(35deg); } }
+        @keyframes v-route4 { 0% { transform: translate(110vw, 45vh) rotate(-175deg); } 100% { transform: translate(-10vw, 40vh) rotate(-175deg); } }
+        @keyframes v-route5 { 0% { transform: translate(-10vw, 65vh) rotate(10deg); } 100% { transform: translate(110vw, 80vh) rotate(10deg); } }
+        @keyframes v-route6 { 0% { transform: translate(110vw, -10vh) rotate(125deg); } 100% { transform: translate(-10vw, 110vh) rotate(125deg); } }
+        @keyframes v-route7 { 0% { transform: translate(75vw, -10vh) rotate(85deg); } 100% { transform: translate(65vw, 110vh) rotate(85deg); } }
+
+        .veh-1 { font-size: 2rem; animation: v-route1 45s linear infinite; top: 0; left: 0; opacity: 0.4; }
+        .veh-2 { font-size: 4.5rem; animation: v-route2 80s linear infinite; top: 0; left: 0; animation-delay: -20s; opacity: 0.25; }
+        .veh-3 { font-size: 2.5rem; animation: v-route3 28s linear infinite; top: 0; left: 0; animation-delay: -5s; opacity: 0.5; }
+        .veh-4 { font-size: 1.8rem; animation: v-route4 35s linear infinite; top: 0; left: 0; animation-delay: -25s; opacity: 0.6; }
+        .veh-5 { font-size: 3.5rem; animation: v-route5 90s linear infinite; top: 0; left: 0; animation-delay: -40s; opacity: 0.3; }
+        .veh-6 { font-size: 2rem; animation: v-route6 32s linear infinite; top: 0; left: 0; animation-delay: -15s; opacity: 0.45; }
+        .veh-7 { font-size: 2.2rem; animation: v-route7 50s linear infinite; top: 0; left: 0; animation-delay: -30s; opacity: 0.35; }
     </style>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-KKFCK1CHW2"></script>
@@ -46,65 +116,103 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-KKFCK1CHW2');
     </script>
 </head>
 <body class="text-slate-800 min-h-screen flex flex-col relative">
 
-    <!-- 浮動通知容器 (Toast Notifications) -->
+    <!-- ========== 物流點對點動態背景 ========== -->
+    <div class="logistics-wrapper">
+        <div class="logistics-grid"></div>
+        <svg class="logistics-network" xmlns="http://www.w3.org/2000/svg">
+            <line x1="15%" y1="20%" x2="70%" y2="35%" class="dash-line" />
+            <line x1="70%" y1="35%" x2="85%" y2="75%" class="dash-line" style="animation-duration: 40s" />
+            <line x1="85%" y1="75%" x2="30%" y2="85%" class="dash-line" style="animation-duration: 45s" />
+            <line x1="30%" y1="85%" x2="15%" y2="20%" class="dash-line" style="animation-duration: 35s" />
+            <line x1="30%" y1="85%" x2="50%" y2="45%" class="dash-line" style="animation-duration: 25s" />
+            <line x1="15%" y1="20%" x2="50%" y2="45%" class="dash-line" style="animation-duration: 38s" />
+            
+            <circle cx="15%" cy="20%" r="4" class="node-point" style="animation-delay: 0s;" />
+            <circle cx="70%" cy="35%" r="4" class="node-point" style="animation-delay: 0.5s;" />
+            <circle cx="85%" cy="75%" r="4" class="node-point" style="animation-delay: 1s;" />
+            <circle cx="30%" cy="85%" r="4" class="node-point" style="animation-delay: 1.5s;" />
+            <circle cx="50%" cy="45%" r="4" class="node-point" style="animation-delay: 0.8s;" />
+        </svg>
+        <i class="fa-solid fa-truck vehicle veh-1"></i>
+        <i class="fa-solid fa-ship vehicle veh-2"></i>
+        <i class="fa-solid fa-plane vehicle veh-3"></i>
+        <i class="fa-solid fa-truck-fast vehicle veh-4"></i>
+        <i class="fa-solid fa-ship vehicle veh-5"></i>
+        <i class="fa-solid fa-plane vehicle veh-6"></i>
+        <i class="fa-solid fa-truck-moving vehicle veh-7"></i>
+    </div>
+    <!-- ============================================= -->
+
     <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
-    <!-- Sticky Header & Hero Section Wrapper -->
-    <div class="sticky top-0 z-40 shadow-xl">
-        <!-- Top Navigation Bar -->
-        <header class="bg-slate-900 text-white border-b border-slate-800">
-            <div class="max-w-[1400px] mx-auto px-6 py-4 flex flex-wrap justify-between items-center gap-4">
-                <div class="flex items-center space-x-3">
-                    <div class="bg-blue-600 p-2.5 rounded-xl shadow-inner">
-                        <i class="fa-solid fa-rocket text-xl text-white"></i>
-                    </div>
-                    <div>
-                        <h1 class="text-lg font-bold tracking-wide flex items-center gap-2">
-                            SS Team &amp; Tools Hub
-                            <span class="bg-blue-500/20 text-blue-300 text-xs font-semibold px-2.5 py-0.5 rounded-full border border-blue-400/30">v1.0</span>
-                        </h1>
-                        <p class="text-xs text-slate-400">Created &amp; Maintained by Victor Chong</p>
-                    </div>
+    <!-- ========== 全新整合的置頂 Header 區塊 (包含大標題與 AVAILABLE TOOLS) ========== -->
+    <div class="sticky top-0 z-50 w-full bg-slate-900/60 backdrop-blur-xl border-b border-slate-600/50 shadow-2xl transition-all flex flex-col">
+        
+        <!-- 1. 最頂部小導航 Navbar -->
+        <header class="max-w-[1400px] w-full mx-auto px-6 py-3 flex flex-wrap justify-between items-center gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="bg-blue-600/90 p-2 rounded-lg shadow-inner">
+                    <i class="fa-solid fa-rocket text-sm text-white"></i>
                 </div>
-
-                <!-- Quick Stats -->
-                <div class="flex items-center space-x-3 text-xs text-slate-300">
-                    <span class="bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700 flex items-center gap-1.5">
-                        <i class="fa-solid fa-box-archive text-blue-400"></i> Active Tools: <strong id="active-tools-count" class="text-white">4</strong>
-                    </span>
+                <div>
+                    <h1 class="text-sm font-bold tracking-wide flex items-center gap-2 text-white">
+                        SS Team &amp; Tools Hub
+                        <span class="bg-blue-500/20 text-blue-300 text-[10px] font-semibold px-2 py-0.5 rounded-full border border-blue-400/30">v1.0</span>
+                    </h1>
                 </div>
+            </div>
+            <div class="flex items-center space-x-3 text-xs text-slate-200">
+                <span class="bg-slate-800/80 px-3 py-1 rounded border border-slate-600/50 flex items-center gap-1.5">
+                    <i class="fa-solid fa-box-archive text-blue-400"></i> Active: <strong id="active-tools-count" class="text-white">4</strong>
+                </span>
             </div>
         </header>
 
-        <!-- Hero Banner Section -->
-        <section class="bg-gradient-to-r from-slate-900 via-slate-800 to-blue-950 text-white py-8 px-6">
-            <div class="max-w-[1400px] mx-auto text-center space-y-3">
-                <h2 class="text-3xl font-extrabold tracking-tight">Internal Logistics &amp; Workflow Tools Hub</h2>
-                <p class="text-slate-300 text-sm max-w-2xl mx-auto">
-                    Centralized platform for daily operational web tools and data integrators. Click any card below to launch the tool.
+        <!-- 2. 大標題與搜尋控制列 (緊湊佈局) -->
+        <section class="max-w-[1400px] w-full mx-auto px-6 pb-2 pt-1 flex flex-col gap-3">
+            <div class="text-center space-y-1">
+                <h2 class="text-3xl md:text-4xl font-black tracking-tight text-white drop-shadow-[0_0_12px_rgba(255,255,255,0.3)]">
+                    Internal Logistics &amp; Workflow Tools Hub
+                </h2>
+                <p class="text-slate-200 text-xs md:text-sm drop-shadow-md font-medium">
+                    Centralized platform for daily operational web tools and data integrators.
                 </p>
-                
-                <!-- Live Search & Tag Filter Bar -->
-                <div class="pt-2 max-w-md mx-auto relative">
-                    <i class="fa-solid fa-magnifying-glass absolute left-4 top-5 text-slate-400 text-sm"></i>
-                    <input type="text" id="tool-search" oninput="filterTools()" placeholder="Search by tool name, keyword, or user name (e.g. Irene)..."
-                        class="w-full pl-11 pr-4 py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl text-sm text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white/20 transition shadow-lg">
+            </div>
+            
+            <!-- Toggle Sidebar & Search Bar (同一 Level) -->
+            <div class="max-w-3xl mx-auto w-full flex flex-col sm:flex-row gap-3 justify-center items-center mt-1">
+                <button onclick="toggleSidebar()" class="bg-white/10 hover:bg-white/20 border border-white/20 text-white text-xs font-bold px-4 py-2.5 rounded-xl backdrop-blur-md shadow-lg transition flex items-center justify-center gap-2 shrink-0">
+                    <i class="fa-solid fa-columns"></i>
+                    <span>Toggle Sidebar</span>
+                </button>
+                <div class="relative w-full">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-300 text-xs"></i>
+                    <input type="text" id="tool-search" oninput="filterTools()" placeholder="Search by tool name, keyword (e.g. Irene)..."
+                        class="w-full pl-9 pr-4 py-2.5 bg-slate-900/60 backdrop-blur-md border border-slate-500/50 rounded-xl text-xs text-white placeholder-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-xl transition">
                 </div>
             </div>
         </section>
+
+        <!-- 3. AVAILABLE TOOLS 標題列 (已移至置頂區，永遠跟隨) -->
+        <div class="max-w-[1400px] w-full mx-auto px-6 py-3 mt-2 border-t border-slate-500/30 flex items-center justify-between">
+            <h3 class="text-base font-extrabold text-white uppercase tracking-wider flex items-center gap-2 drop-shadow-md">
+                <i class="fa-solid fa-grip text-blue-400"></i> Available Tools 
+            </h3>
+            <span class="text-xs text-slate-300 font-medium bg-slate-900/40 px-3 py-1 rounded backdrop-blur-sm">Showing all active modules</span>
+        </div>
     </div>
+    <!-- ============================================================== -->
 
     <!-- Main Content Layout (Sidebar + Tools Grid) -->
-    <div class="flex-1 max-w-[1400px] w-full mx-auto px-6 py-10 flex flex-col lg:flex-row gap-8 items-start">
+    <div class="flex-1 max-w-[1400px] w-full mx-auto px-6 py-8 flex flex-col lg:flex-row gap-8 items-start relative z-10">
         
         <!-- Left Collapsible Sidebar -->
-        <aside id="sidebar-container" class="w-full lg:w-72 bg-white rounded-2xl border border-slate-200 p-5 shadow-sm shrink-0 transition-all duration-300" style="display: none;">
+        <aside id="sidebar-container" class="w-full lg:w-72 bg-white/95 backdrop-blur-sm rounded-2xl border border-slate-200 p-5 shadow-lg shrink-0 transition-all duration-300" style="display: none;">
             <div class="flex items-center justify-between pb-4 border-b border-slate-100 mb-4">
                 <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2">
                     <i class="fa-solid fa-tags text-blue-600"></i> Directory &amp; Quick Access
@@ -114,7 +222,6 @@
 
             <!-- Sidebar Navigation / Tag Groups -->
             <div class="space-y-5 text-xs">
-                <!-- All Tools Option -->
                 <div>
                     <button onclick="filterByTag('')" class="w-full text-left font-semibold text-slate-700 hover:text-blue-600 flex items-center justify-between p-2 rounded-lg hover:bg-slate-50 transition">
                         <span><i class="fa-solid fa-border-all mr-2 text-blue-500"></i> All Active Tools</span>
@@ -122,33 +229,24 @@
                     </button>
                 </div>
 
-                <!-- Favorites Section -->
                 <div class="space-y-1.5">
                     <div class="font-bold text-amber-600 bg-amber-50/70 border border-amber-100 px-3 py-1.5 rounded-lg flex items-center justify-between">
-                        <span class="flex items-center gap-1.5">
-                            <i class="fa-solid fa-star text-amber-500"></i> 我的最愛 (Favorites)
-                        </span>
+                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-star text-amber-500"></i> 我的最愛 (Favorites)</span>
                     </div>
                     <ul id="sidebar-favorites" class="pl-2 space-y-1 ml-1 text-slate-600">
-                        <!-- 動態載入最愛項目 -->
                         <li class="text-slate-400 italic py-1">未加入任何最愛</li>
                     </ul>
                 </div>
 
-                <!-- Recent Tools Section -->
                 <div class="space-y-1.5">
                     <div class="font-bold text-indigo-600 bg-indigo-50/70 border border-indigo-100 px-3 py-1.5 rounded-lg flex items-center justify-between">
-                        <span class="flex items-center gap-1.5">
-                            <i class="fa-solid fa-clock-rotate-left text-indigo-500"></i> 最近使用 (Recent)
-                        </span>
+                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-clock-rotate-left text-indigo-500"></i> 最近使用 (Recent)</span>
                     </div>
                     <ul id="sidebar-recents" class="pl-2 space-y-1 ml-1 text-slate-600">
-                        <!-- 動態載入最近使用項目 -->
                         <li class="text-slate-400 italic py-1">尚無使用記錄</li>
                     </ul>
                 </div>
 
-                <!-- Rachel's Group -->
                 <div class="space-y-1.5 pt-2 border-t border-slate-100">
                     <div class="font-bold text-blue-700 bg-blue-50/70 border border-blue-100 px-3 py-1.5 rounded-lg flex items-center justify-between">
                         <span onclick="filterByTag('rachel')" class="cursor-pointer flex-1 flex items-center gap-1.5">
@@ -157,20 +255,11 @@
                         <span class="bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded text-[10px] font-mono">2 tools</span>
                     </div>
                     <ul class="pl-4 space-y-1 border-l-2 border-blue-100 ml-2">
-                        <li>
-                            <button onclick="filterByTag('SAP ↔️ Supplier')" class="text-slate-600 hover:text-blue-600 text-left w-full py-1 truncate">
-                                • SAP ↔️ Supplier Packing List
-                            </button>
-                        </li>
-                        <li>
-                            <button onclick="filterByTag('SAP Remark Generator')" class="text-slate-600 hover:text-blue-600 text-left w-full py-1 truncate">
-                                • SAP Remark Generator
-                            </button>
-                        </li>
+                        <li><button onclick="filterByTag('SAP ↔️ Supplier')" class="text-slate-600 hover:text-blue-600 text-left w-full py-1 truncate">• SAP ↔️ Supplier Packing List</button></li>
+                        <li><button onclick="filterByTag('SAP Remark Generator')" class="text-slate-600 hover:text-blue-600 text-left w-full py-1 truncate">• SAP Remark Generator</button></li>
                     </ul>
                 </div>
 
-                <!-- Karly's Group -->
                 <div class="space-y-1.5">
                     <div class="font-bold text-purple-700 bg-purple-50/70 border border-purple-100 px-3 py-1.5 rounded-lg flex items-center justify-between">
                         <span onclick="filterByTag('karly')" class="cursor-pointer flex-1 flex items-center gap-1.5">
@@ -179,15 +268,10 @@
                         <span class="bg-purple-100 text-purple-800 px-1.5 py-0.5 rounded text-[10px] font-mono">1 tool</span>
                     </div>
                     <ul class="pl-4 space-y-1 border-l-2 border-purple-100 ml-2">
-                        <li>
-                            <button onclick="filterByTag('SAP Remark Generator')" class="text-slate-600 hover:text-purple-600 text-left w-full py-1 truncate">
-                                • SAP Remark Generator
-                            </button>
-                        </li>
+                        <li><button onclick="filterByTag('SAP Remark Generator')" class="text-slate-600 hover:text-purple-600 text-left w-full py-1 truncate">• SAP Remark Generator</button></li>
                     </ul>
                 </div>
 
-                <!-- Irene's Group -->
                 <div class="space-y-1.5">
                     <div class="font-bold text-emerald-700 bg-emerald-50/70 border border-emerald-100 px-3 py-1.5 rounded-lg flex items-center justify-between">
                         <span onclick="filterByTag('irene')" class="cursor-pointer flex-1 flex items-center gap-1.5">
@@ -196,43 +280,21 @@
                         <span class="bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded text-[10px] font-mono">2 tools</span>
                     </div>
                     <ul class="pl-4 space-y-1 border-l-2 border-emerald-100 ml-2">
-                        <li>
-                            <button onclick="filterByTag('Container Manifest Sanitizer')" class="text-slate-600 hover:text-emerald-600 text-left w-full py-1 truncate">
-                                • Container Manifest Sanitizer
-                            </button>
-                        </li>
-                        <li>
-                            <button onclick="filterByTag('Shipping & Shipmark Generator')" class="text-slate-600 hover:text-emerald-600 text-left w-full py-1 truncate">
-                                • Shipping &amp; Shipmark Generator
-                            </button>
-                        </li>
+                        <li><button onclick="filterByTag('Container Manifest Sanitizer')" class="text-slate-600 hover:text-emerald-600 text-left w-full py-1 truncate">• Container Manifest Sanitizer</button></li>
+                        <li><button onclick="filterByTag('Shipping & Shipmark Generator')" class="text-slate-600 hover:text-emerald-600 text-left w-full py-1 truncate">• Shipping &amp; Shipmark Generator</button></li>
                     </ul>
                 </div>
             </div>
         </aside>
 
-        <!-- Right Main Tools Grid Container -->
+        <!-- Right Main Tools Grid Container (純粹展示卡片) -->
         <main class="flex-1 w-full">
             
-            <div class="flex items-center justify-between mb-6">
-                <div class="flex items-center gap-3">
-                    <!-- Sidebar Toggle Button -->
-                    <button onclick="toggleSidebar()" class="bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 text-xs font-semibold px-3 py-2 rounded-xl shadow-sm transition flex items-center gap-2">
-                        <i class="fa-solid fa-columns"></i>
-                        <span>Toggle Sidebar</span>
-                    </button>
-                    <h3 class="text-base font-bold text-slate-700 uppercase tracking-wider flex items-center gap-2">
-                        <i class="fa-solid fa-grip text-blue-600"></i> Available Tools 
-                    </h3>
-                </div>
-                <span class="text-xs text-slate-500">Showing all active modules</span>
-            </div>
-
             <!-- Tools Cards Grid -->
             <div id="tools-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
                 <!-- Tool Card 1 -->
-                <div class="tool-card bg-white rounded-2xl border border-slate-200 p-6 shadow-sm transition-all duration-300 flex flex-col justify-between group" data-id="1" data-name="SAP ↔️ Supplier Packing List Integrator" data-keywords="1 sap supplier packing list integrator merge logistics rachel">
+                <div class="tool-card bg-white/95 backdrop-blur-sm rounded-2xl border border-slate-200 p-6 shadow-xl transition-all duration-300 flex flex-col justify-between group" data-id="1" data-name="SAP ↔️ Supplier Packing List Integrator" data-keywords="1 sap supplier packing list integrator merge logistics rachel">
                     <div class="space-y-4">
                         <div class="flex justify-between items-start">
                             <div class="flex items-center space-x-2">
@@ -269,7 +331,7 @@
                 </div>
 
                 <!-- Tool Card 2 -->
-                <div class="tool-card bg-white rounded-2xl border border-slate-200 p-6 shadow-sm transition-all duration-300 flex flex-col justify-between group" data-id="2" data-name="SAP Remark Generator" data-keywords="2 sap remark system processing shipping container rachel karly">
+                <div class="tool-card bg-white/95 backdrop-blur-sm rounded-2xl border border-slate-200 p-6 shadow-xl transition-all duration-300 flex flex-col justify-between group" data-id="2" data-name="SAP Remark Generator" data-keywords="2 sap remark system processing shipping container rachel karly">
                     <div class="space-y-4">
                         <div class="flex justify-between items-start">
                             <div class="flex items-center space-x-2">
@@ -307,7 +369,7 @@
                 </div>
 
                 <!-- Tool Card 3 -->
-                <div class="tool-card bg-white rounded-2xl border border-slate-200 p-6 shadow-sm transition-all duration-300 flex flex-col justify-between group" data-id="3" data-name="Container Manifest Sanitizer" data-keywords="3 container manifest sanitizer extractor clean space ctnr seal irene">
+                <div class="tool-card bg-white/95 backdrop-blur-sm rounded-2xl border border-slate-200 p-6 shadow-xl transition-all duration-300 flex flex-col justify-between group" data-id="3" data-name="Container Manifest Sanitizer" data-keywords="3 container manifest sanitizer extractor clean space ctnr seal irene">
                     <div class="space-y-4">
                         <div class="flex justify-between items-start">
                             <div class="flex items-center space-x-2">
@@ -344,7 +406,7 @@
                 </div>
 
                 <!-- Tool Card 4 -->
-                <div class="tool-card bg-white rounded-2xl border border-slate-200 p-6 shadow-sm transition-all duration-300 flex flex-col justify-between group" data-id="4" data-name="Shipping & Shipmark Generator" data-keywords="4 shipping shipmark generator bntca order cargo volume worksheet irene">
+                <div class="tool-card bg-white/95 backdrop-blur-sm rounded-2xl border border-slate-200 p-6 shadow-xl transition-all duration-300 flex flex-col justify-between group" data-id="4" data-name="Shipping & Shipmark Generator" data-keywords="4 shipping shipmark generator bntca order cargo volume worksheet irene">
                     <div class="space-y-4">
                         <div class="flex justify-between items-start">
                             <div class="flex items-center space-x-2">
@@ -385,11 +447,11 @@
     </div>
 
     <!-- Footer -->
-    <footer class="bg-white border-t border-slate-200 py-6 px-6 mt-12 text-center text-xs text-slate-500">
+    <footer class="bg-white/10 backdrop-blur-sm border-t border-slate-500/30 py-6 px-6 mt-12 text-center text-xs text-slate-300 relative z-10">
         <p>Automation Hub &copy; 2026. Built for internal operational efficiency by Victor Chong.</p>
     </footer>
 
-    <!-- Logic Script (Search, Sidebar, Favorites with Animation & Toast) -->
+    <!-- Logic Script -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const totalTools = document.querySelectorAll('.tool-card').length;
@@ -426,7 +488,6 @@
             });
         }
 
-        // --- 彈出通知 (Toast Message) 函數 ---
         function showToast(message, type = 'success') {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
@@ -438,13 +499,11 @@
             
             container.appendChild(toast);
 
-            // 觸發進場動畫
             setTimeout(() => {
                 toast.classList.remove('toast-enter');
                 toast.classList.add('toast-active');
             }, 10);
 
-            // 2.5秒後自動淡出消失
             setTimeout(() => {
                 toast.classList.remove('toast-active');
                 toast.classList.add('toast-enter');
@@ -454,7 +513,6 @@
             }, 2500);
         }
 
-        // --- 我的最愛 (Favorites) 邏輯配動畫 ---
         function toggleFavorite(id) {
             let favorites = JSON.parse(localStorage.getItem('ss_favorites') || '[]');
             const index = favorites.indexOf(id);
@@ -463,7 +521,6 @@
             const toolName = card.getAttribute('data-name');
             const icon = btn.querySelector('i');
 
-            // 執行星星放大旋轉動畫
             icon.classList.add('star-animated');
             setTimeout(() => icon.classList.remove('star-animated'), 350);
 
@@ -510,7 +567,6 @@
             });
         }
 
-        // --- 最近使用 (Recent Tools) 邏輯 ---
         function recordRecent(id, name) {
             let recents = JSON.parse(localStorage.getItem('ss_recents') || '[]');
             recents = recents.filter(item => item.id !== id);
