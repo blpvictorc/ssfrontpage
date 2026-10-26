@@ -150,41 +150,7 @@
 
     <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
-    <!-- ========== 用戶身份選擇 Modal (首次進入或點擊改名時彈出) ========== -->
-    <div id="user-modal" class="fixed inset-0 z-[100] bg-slate-900/80 backdrop-blur-md hidden items-center justify-center p-4">
-        <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-slate-200 space-y-4">
-            <div class="flex items-center justify-between">
-                <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
-                    <i class="fa-solid fa-user-check text-blue-600"></i> Set Current User
-                </h3>
-                <button onclick="closeUserModal()" class="text-slate-400 hover:text-slate-600">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-            </div>
-            <p class="text-xs text-slate-500">Please select or enter your name so the platform can log your session activity accurately.</p>
-            
-            <!-- 快速選擇同事按鈕 -->
-            <div class="grid grid-cols-2 gap-2 pt-1">
-                <button onclick="selectQuickUser('Rachel')" class="py-2 px-3 text-xs font-semibold rounded-xl border border-blue-200 bg-blue-50 text-blue-700 hover:bg-blue-600 hover:text-white transition">Rachel</button>
-                <button onclick="selectQuickUser('Karly')" class="py-2 px-3 text-xs font-semibold rounded-xl border border-purple-200 bg-purple-50 text-purple-700 hover:bg-purple-600 hover:text-white transition">Karly</button>
-                <button onclick="selectQuickUser('Irene')" class="py-2 px-3 text-xs font-semibold rounded-xl border border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-600 hover:text-white transition">Irene</button>
-                <button onclick="selectQuickUser('Victor')" class="py-2 px-3 text-xs font-semibold rounded-xl border border-slate-300 bg-slate-100 text-slate-800 hover:bg-slate-800 hover:text-white transition">Victor</button>
-            </div>
-
-            <div class="relative pt-2">
-                <input type="text" id="custom-username-input" placeholder="Or type Windows username / name..." 
-                    class="w-full px-3.5 py-2 border border-slate-300 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-blue-500">
-            </div>
-
-            <div class="flex justify-end gap-2 pt-2">
-                <button onclick="saveCustomUser()" class="w-full bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold py-2.5 rounded-xl shadow transition">
-                    Confirm &amp; Continue
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- ========== 全新整合的置頂 Header 區塊 ========== -->
+    <!-- ========== 全新整合的置頂 Header 區塊 (包含大標題與 AVAILABLE TOOLS) ========== -->
     <div class="sticky top-0 z-50 w-full bg-slate-900/60 backdrop-blur-xl border-b border-slate-600/50 shadow-2xl transition-all flex flex-col">
         
         <!-- 1. 最頂部小導航 Navbar -->
@@ -196,24 +162,11 @@
                 <div>
                     <h1 class="text-sm font-bold tracking-wide flex items-center gap-2 text-white">
                         SS Team &amp; Tools Hub
-                        <span class="bg-blue-500/20 text-blue-300 text-[10px] font-semibold px-2 py-0.5 rounded-full border border-blue-400/30">v1.1</span>
+                        <span class="bg-blue-500/20 text-blue-300 text-[10px] font-semibold px-2 py-0.5 rounded-full border border-blue-400/30">v1.0</span>
                     </h1>
                 </div>
             </div>
-
-            <!-- 右上角狀態列：Online User + Active Tools -->
             <div class="flex items-center space-x-3 text-xs text-slate-200">
-                <!-- Online User Badge (點擊可切換用戶) -->
-                <button onclick="openUserModal()" class="bg-slate-800/90 hover:bg-slate-700/90 px-3 py-1 rounded border border-slate-600/50 flex items-center gap-2 transition cursor-pointer" title="Click to switch user">
-                    <span class="relative flex h-2 w-2">
-                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                    </span>
-                    <span class="text-slate-400">Online:</span>
-                    <strong id="current-user-display" class="text-emerald-300 font-mono">Guest</strong>
-                    <i class="fa-solid fa-pen-to-square text-[10px] text-slate-400 ml-0.5"></i>
-                </button>
-
                 <span class="bg-slate-800/80 px-3 py-1 rounded border border-slate-600/50 flex items-center gap-1.5">
                     <i class="fa-solid fa-box-archive text-blue-400"></i> Active: <strong id="active-tools-count" class="text-white">4</strong>
                 </span>
@@ -231,7 +184,7 @@
                 </p>
             </div>
             
-            <!-- Toggle Sidebar & Search Bar -->
+            <!-- Toggle Sidebar & Search Bar (同一 Level) -->
             <div class="max-w-3xl mx-auto w-full flex flex-col sm:flex-row gap-3 justify-center items-center mt-1">
                 <button onclick="toggleSidebar()" class="bg-white/10 hover:bg-white/20 border border-white/20 text-white text-xs font-bold px-4 py-2.5 rounded-xl backdrop-blur-md shadow-lg transition flex items-center justify-center gap-2 shrink-0">
                     <i class="fa-solid fa-columns"></i>
@@ -245,7 +198,7 @@
             </div>
         </section>
 
-        <!-- 3. AVAILABLE TOOLS 標題列 -->
+        <!-- 3. AVAILABLE TOOLS 標題列 (已移至置頂區，永遠跟隨) -->
         <div class="max-w-[1400px] w-full mx-auto px-6 py-3 mt-2 border-t border-slate-500/30 flex items-center justify-between">
             <h3 class="text-base font-extrabold text-white uppercase tracking-wider flex items-center gap-2 drop-shadow-md">
                 <i class="fa-solid fa-grip text-blue-400"></i> Available Tools 
@@ -253,6 +206,7 @@
             <span class="text-xs text-slate-300 font-medium bg-slate-900/40 px-3 py-1 rounded backdrop-blur-sm">Showing all active modules</span>
         </div>
     </div>
+    <!-- ============================================================== -->
 
     <!-- Main Content Layout (Sidebar + Tools Grid) -->
     <div class="flex-1 max-w-[1400px] w-full mx-auto px-6 py-8 flex flex-col lg:flex-row gap-8 items-start relative z-10">
@@ -333,8 +287,10 @@
             </div>
         </aside>
 
-        <!-- Right Main Tools Grid Container -->
+        <!-- Right Main Tools Grid Container (純粹展示卡片) -->
         <main class="flex-1 w-full">
+            
+            <!-- Tools Cards Grid -->
             <div id="tools-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
                 <!-- Tool Card 1 -->
@@ -367,7 +323,7 @@
 
                     <div class="pt-6 mt-6 border-t border-slate-100 flex items-center justify-between">
                         <span class="text-[11px] text-slate-400 font-mono">Web ver 1.0, Core 3.8</span>
-                        <a href="https://blpvictorc.github.io/SAP.Supplier.Integrator-/" target="_blank" onclick="handleToolLaunch(event, '1', 'SAP ↔️ Supplier Packing List Integrator', this.href)" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-sm hover:shadow transition flex items-center gap-2">
+                        <a href="https://blpvictorc.github.io/SAP.Supplier.Integrator-/" target="_blank" onclick="recordRecent('1', 'SAP ↔️ Supplier Packing List Integrator')" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-sm hover:shadow transition flex items-center gap-2">
                             <span>Launch Tool</span>
                             <i class="fa-solid fa-arrow-right text-[10px]"></i>
                         </a>
@@ -405,7 +361,7 @@
 
                     <div class="pt-6 mt-6 border-t border-slate-100 flex items-center justify-between">
                         <span class="text-[11px] text-slate-400 font-mono">Web ver 1.0, Core 4.1</span>
-                        <a href="https://blpvictorc.github.io/rachel.remarkinput/" target="_blank" onclick="handleToolLaunch(event, '2', 'SAP Remark Generator', this.href)" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-sm hover:shadow transition flex items-center gap-2">
+                        <a href="https://blpvictorc.github.io/rachel.remarkinput/" target="_blank" onclick="recordRecent('2', 'SAP Remark Generator')" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-sm hover:shadow transition flex items-center gap-2">
                             <span>Launch Tool</span>
                             <i class="fa-solid fa-arrow-right text-[10px]"></i>
                         </a>
@@ -442,7 +398,7 @@
 
                     <div class="pt-6 mt-6 border-t border-slate-100 flex items-center justify-between">
                         <span class="text-[11px] text-slate-400 font-mono">Web ver 1.0, Core 3.0</span>
-                        <a href="https://blpvictorc.github.io/irene.contatiner-/" target="_blank" onclick="handleToolLaunch(event, '3', 'Container Manifest Sanitizer', this.href)" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-sm hover:shadow transition flex items-center gap-2">
+                        <a href="https://blpvictorc.github.io/irene.contatiner-/" target="_blank" onclick="recordRecent('3', 'Container Manifest Sanitizer')" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-sm hover:shadow transition flex items-center gap-2">
                             <span>Launch Tool</span>
                             <i class="fa-solid fa-arrow-right text-[10px]"></i>
                         </a>
@@ -479,7 +435,7 @@
 
                     <div class="pt-6 mt-6 border-t border-slate-100 flex items-center justify-between">
                         <span class="text-[11px] text-slate-400 font-mono">Web ver 1.0, Core 5.0</span>
-                        <a href="https://blpvictorc.github.io/irene.shipmark/" target="_blank" onclick="handleToolLaunch(event, '4', 'Shipping & Shipmark Generator', this.href)" class="bg-purple-600 hover:bg-purple-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-sm hover:shadow transition flex items-center gap-2">
+                        <a href="https://blpvictorc.github.io/irene.shipmark/" target="_blank" onclick="recordRecent('4', 'Shipping & Shipmark Generator')" class="bg-purple-600 hover:bg-purple-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-sm hover:shadow transition flex items-center gap-2">
                             <span>Launch Tool</span>
                             <i class="fa-solid fa-arrow-right text-[10px]"></i>
                         </a>
@@ -495,121 +451,17 @@
         <p>Automation Hub &copy; 2026. Built for internal operational efficiency by Victor Chong.</p>
     </footer>
 
-    <!-- Logic & Telemetry Script -->
+    <!-- Logic Script -->
     <script>
-        // =========================================================================
-        // 1. 設定你嘅 Google Apps Script Web App URL (部署後貼喺呢度)
-        // =========================================================================
-        const LOG_WEBHOOK_URL = "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE";
-
         document.addEventListener("DOMContentLoaded", function() {
             const totalTools = document.querySelectorAll('.tool-card').length;
             const countEl = document.getElementById('active-tools-count');
             if (countEl) countEl.textContent = totalTools;
 
-            initUserIdentity();
             updateFavoritesUI();
             updateRecentsUI();
         });
 
-        // =========================================================================
-        // 2. 用戶身份識別與管理 (共用 localStorage key: 'ss_current_user')
-        // =========================================================================
-        function initUserIdentity() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const userFromUrl = urlParams.get('user');
-            if (userFromUrl) {
-                localStorage.setItem('ss_current_user', userFromUrl.trim());
-            }
-
-            const savedUser = localStorage.getItem('ss_current_user');
-            if (savedUser) {
-                document.getElementById('current-user-display').textContent = savedUser;
-                sendAuditLog("SS Hub Main", "Page_Visit", "Opened Tools Hub");
-            } else {
-                openUserModal();
-            }
-        }
-
-        function openUserModal() {
-            const modal = document.getElementById('user-modal');
-            const input = document.getElementById('custom-username-input');
-            input.value = localStorage.getItem('ss_current_user') || '';
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-        }
-
-        function closeUserModal() {
-            const modal = document.getElementById('user-modal');
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-        }
-
-        function selectQuickUser(name) {
-            setUserIdentity(name);
-        }
-
-        function saveCustomUser() {
-            const inputVal = document.getElementById('custom-username-input').value.trim();
-            if (!inputVal) {
-                showToast("Please enter or select a user name", "info");
-                return;
-            }
-            setUserIdentity(inputVal);
-        }
-
-        function setUserIdentity(name) {
-            localStorage.setItem('ss_current_user', name);
-            document.getElementById('current-user-display').textContent = name;
-            closeUserModal();
-            showToast(`Current Online User set to: ${name}`);
-            sendAuditLog("SS Hub Main", "User_Switch", `Set identity to ${name}`);
-        }
-
-        // =========================================================================
-        // 3. 雲端追蹤發送器 (Send Audit Log to Google Sheet)
-        // =========================================================================
-        function sendAuditLog(pageName, actionName, details = "") {
-            const currentUser = localStorage.getItem('ss_current_user') || 'Unidentified_User';
-            const payload = {
-                timestamp: new Date().toISOString(),
-                user: currentUser,
-                page: pageName,
-                action: actionName,
-                details: details
-            };
-
-            // 同時儲一份喺本地方便 Debug
-            console.log("[SS Audit Log]", payload);
-
-            if (!LOG_WEBHOOK_URL || LOG_WEBHOOK_URL.includes("YOUR_GOOGLE_APPS_SCRIPT")) {
-                return;
-            }
-
-            fetch(LOG_WEBHOOK_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload),
-                keepalive: true
-            }).catch(err => console.error("Log error:", err));
-        }
-
-        // 當點擊 Launch Tool 時：記錄 Recent + 發送 Click Page Log + 將 user 參數帶過去子頁面
-        function handleToolLaunch(event, id, name, targetUrl) {
-            event.preventDefault();
-            recordRecent(id, name);
-            sendAuditLog("SS Hub Main", "Click_Launch_Tool", `Clicked tool #${id}: ${name}`);
-
-            const currentUser = localStorage.getItem('ss_current_user') || 'Guest';
-            const separator = targetUrl.includes('?') ? '&' : '?';
-            const finalUrl = `${targetUrl}${separator}user=${encodeURIComponent(currentUser)}`;
-            window.open(finalUrl, '_blank');
-        }
-
-        // =========================================================================
-        // 4. 原有 UI 與 LocalStorage 功能
-        // =========================================================================
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar-container');
             sidebar.style.display = (sidebar.style.display === 'none') ? 'block' : 'none';
@@ -721,7 +573,6 @@
             recents.unshift({ id, name });
             if (recents.length > 3) recents.pop();
             localStorage.setItem('ss_recents', JSON.stringify(recents));
-            updateRecentsUI();
         }
 
         function updateRecentsUI() {
